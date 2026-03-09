@@ -181,14 +181,15 @@ export default function HeroSection() {
             style={{ opacity: textOpacity, y: textY }}
             className="text-center lg:text-right"
           >
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-fg-secondary text-lg md:text-xl mb-3"
+              className="flex items-center gap-2 justify-center lg:justify-end mb-3"
             >
-              I&apos;m a
-            </motion.p>
+              <span className="w-8 h-px bg-accent" />
+              <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">What I do</span>
+            </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
