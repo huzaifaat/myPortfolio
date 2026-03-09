@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
-/* ── tech icons placed on the globe ── */
+/* ── tech icons ── */
 const techItems = [
   { name: "Python", icon: "🐍", color: "#3776AB" },
   { name: "Django", icon: "🎸", color: "#092E20" },
@@ -22,6 +22,61 @@ const techItems = [
   { name: "MySQL", icon: "🗄️", color: "#4479A1" },
   { name: "Azure", icon: "☁️", color: "#0078D4" },
 ];
+
+/*
+  Each icon lives on a 3D sphere. We define 3 orbit rings:
+  - Horizontal (equator): rotates around Y axis
+  - Vertical (meridian): rotates around X axis
+  - Diagonal (tilted 45°): rotates around a tilted axis
+
+  Each ring has its own set of icons spread evenly.
+  We project 3D → 2D with perspective for depth.
+*/
+
+interface OrbitConfig {
+  items: typeof techItems;
+  radius: number;
+  speed: number;        // radians per second
+  /** Tilt of the orbit plane: [tiltX, tiltZ] in radians */
+  tilt: [number, number];
+}
+
+function project3D(
+  x3: number, y3: number, z3: number,
+  cx: number, cy: number, perspective: number
+) {
+  const scale = perspective / (perspective + z3);
+  return {
+    x: cx + x3 * scale,
+    y: cy + y3 * scale,
+    z: z3,
+    scale,
+  };
+}
+
+function rotateY(x: number, y: number, z: number, a: number) {
+  return {
+    x: x * Math.cos(a) + z * Math.sin(a),
+    y,
+    z: -x * Math.sin(a) + z * Math.cos(a),
+  };
+}
+
+function rotateX(x: number, y: number, z: number, a: number) {
+  return {
+    x,
+    y: y * Math.cos(a) - z * Math.sin(a),
+    z: y * Math.sin(a) + z * Math.cos(a),
+  };
+}
+
+function rotateZ(x: number, y: number, z: number, a: number) {
+  return {
+    x: x * Math.cos(a) - y * Math.sin(a),
+    y: x * Math.sin(a) + y * Math.cos(a),
+    z,
+  };
+}
 
 /* ── Wireframe globe drawn on canvas ── */
 function WireGlobe({ size }: { size: number }) {
@@ -45,55 +100,38 @@ function WireGlobe({ size }: { size: number }) {
       ctx.clearRect(0, 0, size, size);
       const cx = size / 2;
       const cy = size / 2;
-      const r = size * 0.42;
+      const r = size * 0.44;
 
       // Outer circle
-      ctx.strokeStyle = "rgba(139, 92, 246, 0.15)";
+      ctx.strokeStyle = "rgba(139, 92, 246, 0.12)";
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.stroke();
 
       // Latitude lines
-      const latCount = 6;
-      for (let i = 1; i < latCount; i++) {
-        const ratio = i / latCount;
+      for (let i = 1; i < 7; i++) {
+        const ratio = i / 7;
         const y = cy - r + ratio * 2 * r;
         const latR = Math.sqrt(r * r - (y - cy) * (y - cy));
-        ctx.strokeStyle = `rgba(139, 92, 246, ${0.06 + ratio * 0.04})`;
+        ctx.strokeStyle = `rgba(139, 92, 246, ${0.04 + ratio * 0.03})`;
         ctx.beginPath();
-        ctx.ellipse(cx, y, latR, latR * 0.1, 0, 0, Math.PI * 2);
+        ctx.ellipse(cx, y, latR, latR * 0.08, 0, 0, Math.PI * 2);
         ctx.stroke();
       }
 
       // Longitude lines (rotating)
-      const lonCount = 8;
       const rot = rotationRef.current;
-      for (let i = 0; i < lonCount; i++) {
-        const angle = (i / lonCount) * Math.PI + rot;
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI + rot;
         const rx = Math.abs(Math.cos(angle)) * r;
-        ctx.strokeStyle = `rgba(139, 92, 246, ${0.08 + Math.abs(Math.cos(angle)) * 0.07})`;
+        ctx.strokeStyle = `rgba(139, 92, 246, ${0.05 + Math.abs(Math.cos(angle)) * 0.06})`;
         ctx.beginPath();
         ctx.ellipse(cx, cy, rx, r, 0, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Dotted grid overlay
-      ctx.fillStyle = "rgba(139, 92, 246, 0.04)";
-      const dotSpacing = 20;
-      for (let x = cx - r; x <= cx + r; x += dotSpacing) {
-        for (let y = cy - r; y <= cy + r; y += dotSpacing) {
-          const dx = x - cx;
-          const dy = y - cy;
-          if (dx * dx + dy * dy < r * r) {
-            ctx.beginPath();
-            ctx.arc(x, y, 0.8, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-      }
-
-      rotationRef.current += 0.003;
+      rotationRef.current += 0.002;
       raf = requestAnimationFrame(draw);
     };
 
@@ -110,50 +148,78 @@ function WireGlobe({ size }: { size: number }) {
   );
 }
 
-/* ── Orbiting icons ── */
-function OrbitingIcons({ radius, items, duration, reverse, globeSize }: {
-  radius: number;
-  items: typeof techItems;
-  duration: number;
-  reverse?: boolean;
-  globeSize: number;
+/* ── All icons rendered with 3D sphere projection ── */
+function GlobeIcons({ orbits, containerSize, perspective }: {
+  orbits: OrbitConfig[];
+  containerSize: number;
+  perspective: number;
 }) {
-  const [angle, setAngle] = useState(0);
+  const angleRef = useRef(0);
+  const [positions, setPositions] = useState<
+    { tech: typeof techItems[0]; x: number; y: number; z: number; scale: number }[]
+  >([]);
+
+  const compute = useCallback(() => {
+    const cx = containerSize / 2;
+    const cy = containerSize / 2;
+    const result: typeof positions = [];
+
+    for (const orbit of orbits) {
+      for (let i = 0; i < orbit.items.length; i++) {
+        const baseAngle = (i / orbit.items.length) * Math.PI * 2;
+        const a = baseAngle + angleRef.current * orbit.speed;
+
+        // Start on XZ plane (horizontal circle)
+        let px = orbit.radius * Math.cos(a);
+        let py = 0;
+        let pz = orbit.radius * Math.sin(a);
+
+        // Apply orbit tilt
+        const r1 = rotateX(px, py, pz, orbit.tilt[0]);
+        const r2 = rotateZ(r1.x, r1.y, r1.z, orbit.tilt[1]);
+
+        const proj = project3D(r2.x, r2.y, r2.z, cx, cy, perspective);
+
+        result.push({
+          tech: orbit.items[i],
+          x: proj.x,
+          y: proj.y,
+          z: proj.z,
+          scale: proj.scale,
+        });
+      }
+    }
+
+    setPositions(result);
+  }, [orbits, containerSize, perspective]);
 
   useEffect(() => {
     let raf: number;
     let last = performance.now();
-    const speed = ((Math.PI * 2) / duration) * (reverse ? -1 : 1);
 
     const tick = (now: number) => {
       const dt = (now - last) / 1000;
       last = now;
-      setAngle((prev) => prev + speed * dt);
+      angleRef.current += dt;
+      compute();
       raf = requestAnimationFrame(tick);
     };
 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [duration, reverse]);
+  }, [compute]);
 
-  const cx = globeSize / 2;
-  const cy = globeSize / 2;
+  // Sort by z so front items render on top
+  const sorted = [...positions].sort((a, b) => a.z - b.z);
 
   return (
     <>
-      {/* Orbit ring */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/10"
-        style={{ width: radius * 2, height: radius * 2 }}
-      />
-      {items.map((tech, i) => {
-        const itemAngle = angle + (i / items.length) * Math.PI * 2;
-        const x = cx + Math.cos(itemAngle) * radius;
-        const y = cy + Math.sin(itemAngle) * radius;
-        // Calculate depth for 3D effect (items in "back" are smaller/dimmer)
-        const depth = Math.sin(itemAngle);
-        const scale = 0.8 + depth * 0.2;
-        const opacity = 0.6 + depth * 0.4;
+      {sorted.map(({ tech, x, y, z, scale }) => {
+        // Normalize z for opacity: back of sphere = dim, front = bright
+        const maxR = 250;
+        const normalZ = (z + maxR) / (2 * maxR); // 0 = back, 1 = front
+        const opacity = 0.3 + normalZ * 0.7;
+        const iconScale = 0.6 + normalZ * 0.5;
 
         return (
           <div
@@ -162,24 +228,30 @@ function OrbitingIcons({ radius, items, duration, reverse, globeSize }: {
             style={{
               left: x,
               top: y,
-              transform: `translate(-50%, -50%) scale(${scale})`,
+              transform: `translate(-50%, -50%) scale(${iconScale * scale})`,
               opacity,
-              zIndex: Math.round(depth * 10) + 10,
-              transition: "opacity 0.3s",
+              zIndex: Math.round(normalZ * 20),
             }}
           >
             <div
-              className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-black shadow-2xl border-0"
+              className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-black shadow-2xl"
               style={{
-                background: `linear-gradient(135deg, ${tech.color}35, ${tech.color}15)`,
+                background: `linear-gradient(135deg, ${tech.color}40, ${tech.color}18)`,
                 color: tech.color,
-                boxShadow: `0 0 30px ${tech.color}30, 0 0 60px ${tech.color}10`,
-                textShadow: `0 0 10px ${tech.color}80`,
+                boxShadow: `0 0 25px ${tech.color}35, 0 0 50px ${tech.color}12`,
+                textShadow: `0 0 12px ${tech.color}90`,
               }}
             >
               {tech.icon}
             </div>
-            <span className="text-[10px] md:text-xs font-mono font-semibold text-fg-secondary whitespace-nowrap drop-shadow-sm">
+            <span
+              className="text-[10px] md:text-xs font-mono font-semibold whitespace-nowrap"
+              style={{
+                color: tech.color,
+                textShadow: `0 0 8px ${tech.color}50`,
+                opacity: Math.max(0.6, opacity),
+              }}
+            >
               {tech.name}
             </span>
           </div>
@@ -190,27 +262,46 @@ function OrbitingIcons({ radius, items, duration, reverse, globeSize }: {
 }
 
 export default function SkillsSection() {
-  const globeSize = 500;
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [responsiveSize, setResponsiveSize] = useState(globeSize);
+  const [responsiveSize, setResponsiveSize] = useState(560);
 
   useEffect(() => {
     const updateSize = () => {
-      if (window.innerWidth < 640) setResponsiveSize(320);
-      else if (window.innerWidth < 1024) setResponsiveSize(420);
-      else setResponsiveSize(500);
+      if (window.innerWidth < 640) setResponsiveSize(360);
+      else if (window.innerWidth < 1024) setResponsiveSize(480);
+      else setResponsiveSize(560);
     };
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  // Split icons into two orbits
-  const innerOrbit = techItems.slice(0, 8);
-  const outerOrbit = techItems.slice(8);
+  const globeRadius = responsiveSize * 0.38;
+  const perspective = responsiveSize * 1.8;
 
-  const innerRadius = responsiveSize * 0.38;
-  const outerRadius = responsiveSize * 0.58;
+  // 3 orbits with different tilts so icons spread across the sphere
+  const orbits: OrbitConfig[] = [
+    {
+      // Horizontal equator — rotates left
+      items: techItems.slice(0, 6),
+      radius: globeRadius,
+      speed: 0.3,
+      tilt: [0, 0],
+    },
+    {
+      // Vertical meridian — rotates up
+      items: techItems.slice(6, 11),
+      radius: globeRadius * 0.95,
+      speed: -0.25,
+      tilt: [Math.PI / 2, 0],
+    },
+    {
+      // Diagonal 45° — rotates tilted
+      items: techItems.slice(11),
+      radius: globeRadius * 0.9,
+      speed: 0.2,
+      tilt: [Math.PI / 4, Math.PI / 6],
+    },
+  ];
 
   return (
     <section id="skills" className="py-32 px-6 overflow-hidden">
@@ -228,7 +319,7 @@ export default function SkillsSection() {
           </h2>
         </motion.div>
 
-        {/* Globe with orbiting icons */}
+        {/* Globe with 3D orbiting icons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -237,37 +328,23 @@ export default function SkillsSection() {
           className="flex justify-center"
         >
           <div
-            ref={containerRef}
             className="relative"
-            style={{
-              width: responsiveSize + outerRadius * 0.6,
-              height: responsiveSize + outerRadius * 0.6,
-            }}
+            style={{ width: responsiveSize, height: responsiveSize }}
           >
             {/* Center glow */}
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 blur-3xl"
-              style={{ width: responsiveSize * 0.8, height: responsiveSize * 0.8 }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/8 blur-3xl"
+              style={{ width: responsiveSize * 0.7, height: responsiveSize * 0.7 }}
             />
 
             {/* Wireframe globe */}
             <WireGlobe size={responsiveSize} />
 
-            {/* Inner orbit — 8 icons, 40s rotation */}
-            <OrbitingIcons
-              radius={innerRadius}
-              items={innerOrbit}
-              duration={40}
-              globeSize={responsiveSize + outerRadius * 0.6}
-            />
-
-            {/* Outer orbit — 8 icons, 55s rotation, reverse */}
-            <OrbitingIcons
-              radius={outerRadius}
-              items={outerOrbit}
-              duration={55}
-              reverse
-              globeSize={responsiveSize + outerRadius * 0.6}
+            {/* 3D orbiting icons */}
+            <GlobeIcons
+              orbits={orbits}
+              containerSize={responsiveSize}
+              perspective={perspective}
             />
           </div>
         </motion.div>
