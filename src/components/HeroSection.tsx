@@ -204,7 +204,7 @@ export default function HeroSection() {
               transition={{ delay: 1.2 }}
               className="mt-4 text-fg-secondary text-sm max-w-xs ml-auto hidden lg:block"
             >
-              5+ years building production apps, AI chatbots & voice agents with Django, React & Next.js
+              Engineering intelligent systems that shape tomorrow
             </motion.p>
           </motion.div>
         </div>
