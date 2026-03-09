@@ -250,10 +250,10 @@ export default function HeroSection() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.4, duration: 0.6 }}
-        className="fixed right-6 bottom-8 z-40 hidden lg:flex items-center gap-2 text-fg-secondary hover:text-accent transition-colors group"
+        className="fixed right-6 bottom-8 z-40 hidden lg:flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-accent/30 bg-card/80 backdrop-blur-sm text-fg hover:text-accent hover:border-accent/60 hover:shadow-lg hover:shadow-accent/10 transition-all group"
       >
-        <span className="text-[10px] font-mono uppercase tracking-widest">Resume</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:translate-y-0.5 transition-transform">
+        <span className="text-xs font-semibold uppercase tracking-widest">Resume</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 group-hover:translate-y-0.5 transition-transform">
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
         </svg>
       </motion.a>

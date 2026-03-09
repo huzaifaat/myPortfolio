@@ -69,7 +69,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-fg-secondary text-xs">
           <span>&copy; 2025 Huzaifa Athar. All rights reserved.</span>
           <div className="flex items-center gap-4">
-            <span>Built with Next.js, Three.js & Framer Motion</span>
+            <a href="mailto:huzaifaathar1@gmail.com" className="hover:text-accent transition-colors">huzaifaathar1@gmail.com</a>
           </div>
         </div>
       </footer>
