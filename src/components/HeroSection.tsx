@@ -187,7 +187,7 @@ export default function HeroSection() {
               transition={{ delay: 0.6 }}
               className="text-fg-secondary text-lg md:text-xl mb-3"
             >
-              An
+              I&apos;m a
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
