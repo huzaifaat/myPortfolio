@@ -152,13 +152,13 @@ function OrbitingIcons({ radius, items, duration, reverse, globeSize }: {
         const y = cy + Math.sin(itemAngle) * radius;
         // Calculate depth for 3D effect (items in "back" are smaller/dimmer)
         const depth = Math.sin(itemAngle);
-        const scale = 0.7 + depth * 0.3;
-        const opacity = 0.4 + depth * 0.6;
+        const scale = 0.8 + depth * 0.2;
+        const opacity = 0.6 + depth * 0.4;
 
         return (
           <div
             key={tech.name}
-            className="absolute flex flex-col items-center gap-1 pointer-events-none"
+            className="absolute flex flex-col items-center gap-1.5 pointer-events-none"
             style={{
               left: x,
               top: y,
@@ -169,16 +169,17 @@ function OrbitingIcons({ radius, items, duration, reverse, globeSize }: {
             }}
           >
             <div
-              className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center text-lg md:text-xl font-bold shadow-lg backdrop-blur-sm border border-white/10"
+              className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-black shadow-2xl border-0"
               style={{
-                background: `${tech.color}20`,
+                background: `linear-gradient(135deg, ${tech.color}35, ${tech.color}15)`,
                 color: tech.color,
-                boxShadow: `0 0 20px ${tech.color}15`,
+                boxShadow: `0 0 30px ${tech.color}30, 0 0 60px ${tech.color}10`,
+                textShadow: `0 0 10px ${tech.color}80`,
               }}
             >
               {tech.icon}
             </div>
-            <span className="text-[9px] md:text-[10px] font-mono text-fg-secondary whitespace-nowrap">
+            <span className="text-[10px] md:text-xs font-mono font-semibold text-fg-secondary whitespace-nowrap drop-shadow-sm">
               {tech.name}
             </span>
           </div>
