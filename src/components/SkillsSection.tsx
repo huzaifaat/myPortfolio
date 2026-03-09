@@ -234,7 +234,7 @@ function GlobeIcons({ orbits, containerSize, perspective }: {
             }}
           >
             <div
-              className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-black shadow-2xl"
+              className="w-11 h-11 sm:w-14 sm:h-14 md:w-[72px] md:h-[72px] rounded-xl sm:rounded-2xl flex items-center justify-center text-lg sm:text-2xl md:text-3xl font-black shadow-2xl"
               style={{
                 background: `linear-gradient(135deg, ${tech.color}40, ${tech.color}18)`,
                 color: tech.color,
@@ -245,7 +245,7 @@ function GlobeIcons({ orbits, containerSize, perspective }: {
               {tech.icon}
             </div>
             <span
-              className="text-[10px] md:text-xs font-mono font-semibold whitespace-nowrap"
+              className="text-[8px] sm:text-[10px] md:text-xs font-mono font-semibold whitespace-nowrap"
               style={{
                 color: tech.color,
                 textShadow: `0 0 8px ${tech.color}50`,
@@ -266,8 +266,9 @@ export default function SkillsSection() {
 
   useEffect(() => {
     const updateSize = () => {
-      if (window.innerWidth < 640) setResponsiveSize(360);
-      else if (window.innerWidth < 1024) setResponsiveSize(480);
+      if (window.innerWidth < 480) setResponsiveSize(300);
+      else if (window.innerWidth < 640) setResponsiveSize(340);
+      else if (window.innerWidth < 1024) setResponsiveSize(460);
       else setResponsiveSize(560);
     };
     updateSize();

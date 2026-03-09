@@ -48,7 +48,7 @@ export default function ContactSection() {
           className="text-center"
         >
           <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Contact</span>
-          <h2 className="mt-3 text-4xl md:text-6xl font-bold tracking-tight">
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
             Let&apos;s work <span className="gradient-text">together</span>
           </h2>
           <p className="mt-4 text-fg-secondary max-w-md mx-auto">
@@ -67,7 +67,7 @@ export default function ContactSection() {
           <MagneticButton
             as="a"
             href="mailto:huzaifaathar1@gmail.com"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-fg text-bg rounded-full text-lg font-semibold hover:opacity-90 transition-opacity shadow-xl shadow-fg/10"
+            className="inline-flex items-center gap-2 sm:gap-3 px-7 py-4 sm:px-10 sm:py-5 bg-fg text-bg rounded-full text-base sm:text-lg font-semibold hover:opacity-90 transition-opacity shadow-xl shadow-fg/10"
           >
             Say Hello
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">

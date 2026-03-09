@@ -31,7 +31,7 @@ export default function Home() {
           <ScrollReveal>
             <div className="text-center mb-4">
               <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">About Me</span>
-              <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight">
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
                 Who <span className="gradient-text">I am</span>
               </h2>
             </div>
@@ -46,7 +46,7 @@ export default function Home() {
           <ScrollReveal>
             <div className="text-center mb-4">
               <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Experience</span>
-              <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight">
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
                 Where I&apos;ve <span className="gradient-text">worked</span>
               </h2>
             </div>

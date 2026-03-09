@@ -60,7 +60,7 @@ export default function ChatInterface() {
         {/* Chat area — scrolls internally only */}
         <div
           ref={chatContainerRef}
-          className="h-[320px] overflow-y-auto overscroll-contain p-5 space-y-3"
+          className="h-[250px] sm:h-[320px] overflow-y-auto overscroll-contain p-3 sm:p-5 space-y-3"
         >
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full gap-3">
@@ -90,7 +90,7 @@ export default function ChatInterface() {
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm leading-relaxed ${
                     msg.role === "user"
                       ? "bg-fg text-bg rounded-br-md"
                       : "bg-bg-secondary border border-border rounded-bl-md"

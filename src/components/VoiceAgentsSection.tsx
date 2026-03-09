@@ -29,13 +29,13 @@ const agents = [
 
 function VoiceAIVisual() {
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center">
+    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
       {/* Outer pulse rings */}
       {[1, 2, 3].map((i) => (
         <motion.div
           key={i}
           className="absolute rounded-full border border-accent/10"
-          style={{ width: 150 + i * 80, height: 150 + i * 80 }}
+          style={{ width: 100 + i * 60, height: 100 + i * 60 }}
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.1, 0.3] }}
           transition={{ repeat: Infinity, duration: 3, delay: i * 0.5, ease: "easeInOut" }}
         />
@@ -43,14 +43,14 @@ function VoiceAIVisual() {
 
       {/* Center orb */}
       <motion.div
-        className="relative w-36 h-36 rounded-full bg-gradient-to-br from-accent/20 to-accent-2/20 flex items-center justify-center"
+        className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br from-accent/20 to-accent-2/20 flex items-center justify-center"
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
       >
         <div className="absolute inset-0 rounded-full bg-accent/10 blur-xl" />
 
         {/* Inner circle */}
-        <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center shadow-xl shadow-accent/30">
+        <div className="relative w-18 h-18 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center shadow-xl shadow-accent/30">
           {/* AI icon */}
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
@@ -59,7 +59,7 @@ function VoiceAIVisual() {
       </motion.div>
 
       {/* Sound wave bars — left side */}
-      <div className="absolute left-[15%] flex items-center gap-1 h-20">
+      <div className="absolute left-[8%] sm:left-[15%] flex items-center gap-1 h-16 sm:h-20">
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
             key={`l-${i}`}
@@ -71,7 +71,7 @@ function VoiceAIVisual() {
       </div>
 
       {/* Sound wave bars — right side */}
-      <div className="absolute right-[15%] flex items-center gap-1 h-20">
+      <div className="absolute right-[8%] sm:right-[15%] flex items-center gap-1 h-16 sm:h-20">
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
             key={`r-${i}`}
@@ -84,7 +84,7 @@ function VoiceAIVisual() {
 
       {/* Floating labels */}
       <motion.div
-        className="absolute top-8 right-[10%] bg-card border border-border rounded-xl px-3 py-2 shadow-lg"
+        className="absolute top-8 right-[5%] sm:right-[10%] bg-card border border-border rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 shadow-lg"
         animate={{ y: [0, -6, 0] }}
         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
       >
@@ -92,7 +92,7 @@ function VoiceAIVisual() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-12 left-[10%] bg-card border border-border rounded-xl px-3 py-2 shadow-lg"
+        className="absolute bottom-8 sm:bottom-12 left-[5%] sm:left-[10%] bg-card border border-border rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 shadow-lg"
         animate={{ y: [0, 6, 0] }}
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
       >
@@ -100,7 +100,7 @@ function VoiceAIVisual() {
       </motion.div>
 
       <motion.div
-        className="absolute top-[35%] left-[5%] bg-card border border-border rounded-xl px-3 py-2 shadow-lg"
+        className="absolute top-[35%] left-[2%] sm:left-[5%] bg-card border border-border rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 shadow-lg hidden sm:block"
         animate={{ y: [0, -4, 0], x: [0, 3, 0] }}
         transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
       >

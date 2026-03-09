@@ -31,7 +31,7 @@ export default function BentoGrid() {
           <span className="text-xs font-mono text-accent uppercase tracking-widest">What I Do</span>
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
         </div>
-        <p className="text-2xl md:text-3xl font-bold leading-snug tracking-tight">
+        <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug tracking-tight">
           I build <span className="gradient-text">production-grade</span> web platforms,{" "}
           <span className="gradient-text">AI chatbots</span> that understand context, and{" "}
           <span className="gradient-text">voice agents</span> that talk to your customers.

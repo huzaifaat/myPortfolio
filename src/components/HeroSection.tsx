@@ -107,7 +107,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-              className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] uppercase"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] uppercase"
             >
               HUZAIFA
               <br />
@@ -134,7 +134,7 @@ export default function HeroSection() {
               <div className="absolute inset-[-70px] rounded-full border border-accent/5 animate-[spin_35s_linear_infinite_reverse]" />
 
               {/* Avatar image */}
-              <div className="relative w-52 h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-2 border-border/50 shadow-2xl shadow-accent/20">
+              <div className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-2 border-border/50 shadow-2xl shadow-accent/20">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/avatar.jpg"
@@ -193,7 +193,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] uppercase"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] uppercase"
             >
               <AnimatedRole />
             </motion.div>
