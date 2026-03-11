@@ -38,7 +38,7 @@ const qaDatabase: QAEntry[] = [
       "I've worked extensively on AI-integrated products:\n\n**At DigitLabs:** Built the backend for an AI-powered chatbot platform — APIs for LLM communication, document-based contextual input, and analytics dashboards.\n\n**AI Voice Agents:** I've also developed conversational AI voice agents including a **Dental Receptionist AI** that handles patient calls and FAQs, and an **Appointment Booking Agent** that schedules, reschedules, and cancels appointments via voice with calendar integration.\n\nMy final year project was in Machine Learning & Image Processing.",
   },
   {
-    keywords: ["voice", "agent", "dental", "receptionist", "appointment", "booking", "call"],
+    keywords: ["voice agent", "voice agents", "ai voice", "voice", "agent", "dental", "receptionist", "appointment", "booking", "call"],
     response:
       "I've built AI-powered voice agents that handle real phone conversations:\n\n**Dental Receptionist AI** — Handles incoming calls for dental clinics, greeting patients, answering FAQs about services, hours, and insurance, and intelligently routing calls to the right department. Available 24/7.\n\n**Appointment Booking Agent** — A conversational AI that schedules, reschedules, and cancels appointments via voice. It integrates with calendar systems, handles time zone logic, and sends automated confirmations.\n\nBoth agents feature natural conversation flow, context awareness, and seamless handoff to human staff when needed.",
   },
