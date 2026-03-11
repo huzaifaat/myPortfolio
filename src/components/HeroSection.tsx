@@ -1,24 +1,67 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
 import ChatInterface from "./ChatInterface";
 
 const roles = ["Technical Leader", "Full-Stack Developer", "Agentic AI Engineer"];
 
 function AnimatedRole() {
+  const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState<"enter" | "hold" | "exit">("enter");
+  const words = roles[index].split(" ");
+
+  useEffect(() => {
+    // Timeline: enter words staggered -> hold -> exit -> next role
+    const wordCount = roles[index].split(" ").length;
+    const enterDuration = wordCount * 300 + 400; // stagger per word + base
+    const holdDuration = 1800;
+    const exitDuration = 500;
+
+    setPhase("enter");
+
+    const holdTimer = setTimeout(() => setPhase("exit"), enterDuration + holdDuration);
+    const nextTimer = setTimeout(() => {
+      setIndex((prev) => (prev + 1) % roles.length);
+      setPhase("enter");
+    }, enterDuration + holdDuration + exitDuration);
+
+    return () => {
+      clearTimeout(holdTimer);
+      clearTimeout(nextTimer);
+    };
+  }, [index]);
+
   return (
-    <span className="inline-block overflow-hidden h-[1.15em] align-bottom">
-      <motion.span
-        className="inline-flex flex-col"
-        animate={{ y: ["0%", "0%", "-33.33%", "-33.33%", "-66.66%", "-66.66%", "0%"] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", times: [0, 0.28, 0.33, 0.61, 0.66, 0.94, 1] }}
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={roles[index]}
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0, y: -15 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="flex flex-wrap gap-x-[0.3em] justify-center lg:justify-end"
       >
-        {roles.map((role) => (
-          <span key={role} className="block gradient-text">{role}</span>
+        {words.map((word, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={
+              phase === "exit"
+                ? { opacity: 0, y: -10, filter: "blur(4px)" }
+                : { opacity: 1, y: 0, filter: "blur(0px)" }
+            }
+            transition={{
+              duration: 0.45,
+              delay: phase === "enter" ? i * 0.3 : (words.length - 1 - i) * 0.08,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="gradient-text inline-block"
+          >
+            {word}
+          </motion.span>
         ))}
-      </motion.span>
-    </span>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -76,14 +119,41 @@ function SocialLinks() {
 }
 
 export default function HeroSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const avatarY = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 0.4], [0, -50]);
 
+  // Mouse parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 25, stiffness: 150 };
+  const parallaxX = useSpring(mouseX, springConfig);
+  const parallaxY = useSpring(mouseY, springConfig);
+  const parallaxXInverse = useTransform(parallaxX, (v) => -v);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    mouseX.set((e.clientX - centerX) / 40);
+    mouseY.set((e.clientY - centerY) / 40);
+  }, [mouseX, mouseY]);
+
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [mouseX, mouseY]);
+
   return (
-    <section id="home" ref={ref} className="relative min-h-screen overflow-hidden">
+    <section
+      id="home"
+      ref={ref}
+      className="relative min-h-screen overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <SocialLinks />
 
       {/* Main hero layout */}
@@ -92,7 +162,7 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 items-center">
           {/* Left: Name */}
           <motion.div
-            style={{ opacity: textOpacity, y: textY }}
+            style={{ opacity: textOpacity, y: textY, x: parallaxX }}
             className="text-center lg:text-left"
           >
             <motion.p
@@ -128,6 +198,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 1, ease: [0.33, 1, 0.68, 1] }}
               className="relative"
+              style={{ x: parallaxX, y: parallaxY }}
             >
               {/* Orbit ring */}
               <div className="absolute inset-[-40px] rounded-full border border-accent/10 animate-[spin_25s_linear_infinite]" />
@@ -178,7 +249,7 @@ export default function HeroSection() {
 
           {/* Right: Role */}
           <motion.div
-            style={{ opacity: textOpacity, y: textY }}
+            style={{ opacity: textOpacity, y: textY, x: parallaxXInverse }}
             className="text-center lg:text-right"
           >
             <motion.div
@@ -194,7 +265,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] uppercase"
+              className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] uppercase"
             >
               <AnimatedRole />
             </motion.div>
