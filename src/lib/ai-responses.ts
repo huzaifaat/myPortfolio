@@ -10,7 +10,7 @@ const qaDatabase: QAEntry[] = [
   {
     keywords: ["who are you", "about you", "about yourself", "yourself", "introduce", "who is huzaifa"],
     response:
-      "I'm Huzaifa Athar, a Full Stack Developer with over 5 years of experience building production-grade web applications. I specialize in Django, FastAPI, React, and Next.js. I've worked on AI-integrated products including chatbot platforms, document-context features, and real-time analytics dashboards. I'm passionate about building scalable backend systems and delivering intuitive frontend experiences.",
+      "I'm Huzaifa Athar — a Technical Leader, Full Stack Developer & AI Engineer with 5+ years of experience. I don't just build software — I lead teams, manage client relationships, and own the full lifecycle from project acquisition to deployment and maintenance.\n\nI've scaled products across 3 companies, led cross-functional teams, and shipped 10+ production products. I specialize in Django, React, Next.js, and AI-integrated systems including chatbot platforms and voice agents.\n\nWhether it's an individual project or coordinating multiple teams — I plan it, execute it, and deliver it at the highest standard.",
   },
   {
     keywords: ["experience", "work", "job", "career", "history", "company"],
@@ -86,6 +86,11 @@ const qaDatabase: QAEntry[] = [
     keywords: ["database", "sql", "postgres", "mysql", "mongo", "nosql"],
     response:
       "I have extensive experience with both SQL and NoSQL databases:\n\n- **PostgreSQL:** My primary database, used across DigitLabs and MTP projects for complex queries and optimized performance\n- **MongoDB:** NoSQL document database for flexible, schema-less data models\n- **MySQL:** Additional experience with MySQL-based systems\n- **Redis:** In-memory data store for caching and real-time operations\n- **Query Optimization:** Structured query logic, reduced data duplication, and enhanced real-time reporting\n- **Data Handling:** Proficient with JSON structured data, Pandas, and NumPy",
+  },
+  {
+    keywords: ["lead", "leader", "leadership", "manage", "manager", "team", "client", "project management", "ceo", "planning", "execution"],
+    response:
+      "Leadership is at the core of what I do. Here's how I operate:\n\n**Client Acquisition & Dealing:** I engage directly with clients — understanding their vision, scoping requirements, and translating business needs into technical roadmaps.\n\n**Project Planning & Architecture:** From system design to sprint planning, I lay the groundwork before a single line of code is written.\n\n**Team Leadership:** I've led cross-functional teams, mentored junior developers, conducted code reviews, and driven Agile ceremonies.\n\n**Execution & Delivery:** I don't just delegate — I build alongside my team, ensuring quality at every stage.\n\n**Deployment & Maintenance:** I own the full lifecycle — CI/CD pipelines, cloud infrastructure, monitoring, and long-term support.\n\nWhether it's a solo project, a team effort, or coordinating across multiple teams — I deliver exceptional results at every scale.",
   },
   {
     keywords: ["hello", "hi", "hey", "greet", "good"],

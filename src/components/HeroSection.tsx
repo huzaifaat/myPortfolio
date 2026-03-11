@@ -4,15 +4,15 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import ChatInterface from "./ChatInterface";
 
-const roles = ["Full-Stack Developer", "AI Engineer", "Voice Agent Builder"];
+const roles = ["Technical Leader", "Full-Stack Developer", "AI Engineer", "Voice Agent Builder" ];
 
 function AnimatedRole() {
   return (
     <span className="inline-block overflow-hidden h-[1.15em] align-bottom">
       <motion.span
         className="inline-flex flex-col"
-        animate={{ y: ["0%", "-33.33%", "-66.66%", "0%"] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", times: [0, 0.3, 0.6, 1] }}
+        animate={{ y: ["0%", "-25%", "-50%", "-75%", "0%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", times: [0, 0.2, 0.45, 0.7, 1] }}
       >
         {roles.map((role) => (
           <span key={role} className="block gradient-text">{role}</span>

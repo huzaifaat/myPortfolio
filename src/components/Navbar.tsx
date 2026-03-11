@@ -62,6 +62,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="hidden md:flex items-center gap-6">
+          <a href="/blog" className="text-sm font-medium tracking-wide uppercase text-fg-secondary hover:text-fg transition-colors">Blog</a>
           {navLinks.filter(l => ["About", "Experience", "Contact"].includes(l.label)).map((link) => (
             <button
               key={link.label}
