@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getBlogPost, blogPosts } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
+import Navbar from "@/components/Navbar";
 
 const post = getBlogPost("from-code-to-leadership");
 
@@ -95,6 +96,7 @@ export default function BlogPostPage() {
     <div className="noise">
       <div className="spotlight" />
       <div className="dot-grid" />
+      <Navbar />
 
       <article className="min-h-screen max-w-3xl mx-auto px-6 pt-28 pb-20">
         {/* Back */}

@@ -110,6 +110,13 @@ export default function Navbar() {
                 </button>
               ))}
               <a
+                href="/blog"
+                onClick={() => setMenuOpen(false)}
+                className="block w-full text-left px-4 py-3 rounded-xl text-sm text-fg-secondary hover:text-accent"
+              >
+                Blog
+              </a>
+              <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "@/lib/blog-data";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -13,6 +14,7 @@ export default function BlogPage() {
     <div className="noise">
       <div className="spotlight" />
       <div className="dot-grid" />
+      <Navbar />
 
       <div className="min-h-screen max-w-4xl mx-auto px-6 pt-28 pb-20">
         {/* Back to home */}
