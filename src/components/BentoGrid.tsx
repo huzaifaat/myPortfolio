@@ -34,10 +34,10 @@ export default function BentoGrid() {
         <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug tracking-tight">
           I lead teams to build <span className="gradient-text">production-grade</span> platforms,{" "}
           <span className="gradient-text">AI products</span>, and{" "}
-          <span className="gradient-text">voice agents</span> — from strategy to deployment.
+          <span className="gradient-text">voice agents</span>, from strategy to deployment.
         </p>
         <p className="mt-4 text-fg-secondary leading-relaxed">
-          I don&apos;t just write code — I own the full lifecycle. Client acquisition, project planning, architecture, team execution, deployment, and long-term maintenance. End to end.
+          I don&apos;t just write code. I own the full lifecycle: client acquisition, project planning, architecture, team execution, deployment, and long-term maintenance. End to end.
         </p>
       </motion.div>
 

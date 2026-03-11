@@ -18,7 +18,7 @@ const experiences = [
     period: "Feb 2022 - Aug 2024",
     current: false,
     description:
-      "Built full-stack applications across multiple products — Django & FastAPI backends, React & Next.js frontends. Created high-performance microservices and managed AWS infrastructure.",
+      "Built full-stack applications across multiple products: Django & FastAPI backends, React & Next.js frontends. Created high-performance microservices and managed AWS infrastructure.",
     tech: ["Django", "FastAPI", "React", "Next.js", "AWS"],
   },
   {

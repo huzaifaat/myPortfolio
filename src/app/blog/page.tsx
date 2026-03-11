@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Insights on full-stack development, AI engineering, technical leadership, and building production-grade products — by Huzaifa Athar.",
+    "Insights on full-stack development, AI engineering, technical leadership, and building production-grade products by Huzaifa Athar.",
 };
 
 export default function BlogPage() {

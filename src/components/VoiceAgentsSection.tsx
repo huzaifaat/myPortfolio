@@ -6,7 +6,7 @@ const agents = [
   {
     title: "Dental Receptionist AI",
     description:
-      "An AI-powered voice agent that handles incoming calls for dental clinics — greeting patients, answering FAQs about services, hours, and insurance, and routing calls to the right department.",
+      "An AI-powered voice agent that handles incoming calls for dental clinics, greeting patients, answering FAQs about services, hours, and insurance, and routing calls to the right department.",
     features: ["Natural conversation flow", "FAQ handling", "Call routing", "24/7 availability"],
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -126,7 +126,7 @@ export default function VoiceAgentsSection() {
             Voice <span className="gradient-text">AI Products</span>
           </h2>
           <p className="mt-4 text-fg-secondary max-w-lg mx-auto">
-            I build intelligent voice agents that handle real conversations — from dental reception to appointment scheduling.
+            I build intelligent voice agents that handle real conversations, from dental reception to appointment scheduling.
           </p>
         </motion.div>
 
