@@ -67,7 +67,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-border py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-fg-secondary text-xs">
-          <span>&copy; 2025 Huzaifa Athar. All rights reserved.</span>
+          <span>&copy; 2026 Huzaifa Athar. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <a href="mailto:huzaifaathar1@gmail.com" className="hover:text-accent transition-colors">huzaifaathar1@gmail.com</a>
           </div>

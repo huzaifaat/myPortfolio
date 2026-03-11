@@ -11,8 +11,11 @@ const techItems = [
   { name: "Next.js", icon: "▲", color: "#ffffff" },
   { name: "TypeScript", icon: "TS", color: "#3178C6" },
   { name: "PostgreSQL", icon: "🐘", color: "#4169E1" },
+  { name: "MongoDB", icon: "🍃", color: "#47A248" },
   { name: "Redis", icon: "◆", color: "#DC382D" },
   { name: "AWS", icon: "☁️", color: "#FF9900" },
+  { name: "Bedrock", icon: "🤖", color: "#FF9900" },
+  { name: "GCP", icon: "◎", color: "#4285F4" },
   { name: "Docker", icon: "🐳", color: "#2496ED" },
   { name: "FastAPI", icon: "⚡", color: "#009688" },
   { name: "Celery", icon: "🌿", color: "#37B24D" },
@@ -283,21 +286,21 @@ export default function SkillsSection() {
   const orbits: OrbitConfig[] = [
     {
       // Horizontal equator — rotates left
-      items: techItems.slice(0, 6),
+      items: techItems.slice(0, 6),  // Python, Django, React, Next.js, TS, PostgreSQL
       radius: globeRadius,
       speed: 0.3,
       tilt: [0, 0],
     },
     {
       // Vertical meridian — rotates up
-      items: techItems.slice(6, 11),
+      items: techItems.slice(6, 13),  // MongoDB, Redis, AWS, Bedrock, GCP, Docker
       radius: globeRadius * 0.95,
       speed: -0.25,
       tilt: [Math.PI / 2, 0],
     },
     {
       // Diagonal 45° — rotates tilted
-      items: techItems.slice(11),
+      items: techItems.slice(12),  // FastAPI, Celery, Git, JS, Tailwind, MySQL, Azure
       radius: globeRadius * 0.9,
       speed: 0.2,
       tilt: [Math.PI / 4, Math.PI / 6],

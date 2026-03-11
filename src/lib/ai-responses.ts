@@ -20,7 +20,7 @@ const qaDatabase: QAEntry[] = [
   {
     keywords: ["skill", "tech", "stack", "technology", "language", "framework", "tool"],
     response:
-      "Here's my tech stack:\n\n**Languages & Frameworks:** Python, JavaScript, TypeScript, Django, FastAPI, React.js, Next.js, Redux, HTML, CSS\n\n**Data & Libraries:** SQL, PostgreSQL, MySQL, Pandas, NumPy\n\n**DevOps & Tools:** AWS (EC2, S3, CloudWatch), Docker, Git, Azure\n\n**Other:** Celery, Redis, WebSockets, Material UI, Webpack, WordPress\n\n**Soft Skills:** Effective communication, collaboration, problem-solving, and adaptability.",
+      "Here's my tech stack:\n\n**Languages & Frameworks:** Python, JavaScript, TypeScript, Django, FastAPI, React.js, Next.js, Redux, HTML, CSS\n\n**Databases:** PostgreSQL, MySQL, MongoDB, Redis\n\n**Cloud & AI:** AWS (EC2, S3, Bedrock, CloudWatch), GCP, Azure, Docker\n\n**Other:** Celery, WebSockets, Git, Material UI, Tailwind CSS\n\n**Soft Skills:** Effective communication, collaboration, problem-solving, and adaptability.",
   },
   {
     keywords: ["django", "python", "backend", "api"],
@@ -58,9 +58,9 @@ const qaDatabase: QAEntry[] = [
       "Throughout my career, I've worked on diverse projects:\n\n- **AI Chatbot Platform** — Full backend with Django, document uploads, contextual AI responses, and analytics dashboards\n- **AI Voice Agents** — Dental Receptionist AI & Appointment Booking Agent with natural conversation flow\n- **Battery Testing Logistics Platform** — Django/PostgreSQL backend with multiple external API integrations\n- **Multiple SaaS Products at MTP** — Full-stack apps with Django/FastAPI backends and React/Next.js frontends\n- **Frontend Modules at Codegic** — Reusable React component libraries across multiple products\n\nEach project involved end-to-end development from design to AWS deployment.",
   },
   {
-    keywords: ["aws", "deploy", "cloud", "devops", "docker"],
+    keywords: ["aws", "deploy", "cloud", "devops", "docker", "gcp", "bedrock", "google cloud"],
     response:
-      "I have hands-on experience with cloud deployment and DevOps:\n\n- **AWS:** EC2 for compute, S3 for storage, CloudWatch for monitoring\n- **Docker:** Containerized applications for consistent deployments\n- **Azure:** Additional cloud platform experience\n- **Git/GitHub:** Version control and collaborative development\n\nAt MTP, I handled deployment tasks on AWS, promptly resolving issues to maintain optimal performance and scalability.",
+      "I have hands-on experience with cloud platforms and DevOps:\n\n- **AWS:** EC2, S3, CloudWatch, and **Bedrock** for managed AI/ML model access\n- **GCP:** Google Cloud Platform for scalable cloud infrastructure\n- **Azure:** Additional cloud platform experience\n- **Docker:** Containerized applications for consistent deployments\n- **Git/GitHub:** Version control and collaborative development\n\nI've managed deployments across AWS and GCP, resolving issues promptly to maintain optimal performance and scalability.",
   },
   {
     keywords: ["digitlabs", "current"],
@@ -83,9 +83,9 @@ const qaDatabase: QAEntry[] = [
       "I have strong experience with FastAPI, which I used at MTP for performance-critical microservices. FastAPI's async capabilities allowed me to build high-performance APIs with significantly improved response times compared to traditional frameworks. Combined with Python type hints, it provides excellent developer experience with automatic API documentation.",
   },
   {
-    keywords: ["database", "sql", "postgres", "mysql"],
+    keywords: ["database", "sql", "postgres", "mysql", "mongo", "nosql"],
     response:
-      "I have extensive experience with relational databases:\n\n- **PostgreSQL:** My primary database, used across DigitLabs and MTP projects for complex queries, data integrity, and optimized performance\n- **MySQL:** Additional experience with MySQL-based systems\n- **Query Optimization:** Implemented structured query logic, reduced data duplication, and enhanced real-time reporting\n- **Data Handling:** Proficient with JSON structured data, Pandas, and NumPy for data processing",
+      "I have extensive experience with both SQL and NoSQL databases:\n\n- **PostgreSQL:** My primary database, used across DigitLabs and MTP projects for complex queries and optimized performance\n- **MongoDB:** NoSQL document database for flexible, schema-less data models\n- **MySQL:** Additional experience with MySQL-based systems\n- **Redis:** In-memory data store for caching and real-time operations\n- **Query Optimization:** Structured query logic, reduced data duplication, and enhanced real-time reporting\n- **Data Handling:** Proficient with JSON structured data, Pandas, and NumPy",
   },
   {
     keywords: ["hello", "hi", "hey", "greet", "good"],
