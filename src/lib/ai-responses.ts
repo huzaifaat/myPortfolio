@@ -8,7 +8,7 @@ interface QAEntry {
 
 const qaDatabase: QAEntry[] = [
   {
-    keywords: ["who", "about", "yourself", "introduce", "tell me about"],
+    keywords: ["who are you", "about you", "about yourself", "yourself", "introduce", "who is huzaifa"],
     response:
       "I'm Huzaifa Athar, a Full Stack Developer with over 5 years of experience building production-grade web applications. I specialize in Django, FastAPI, React, and Next.js. I've worked on AI-integrated products including chatbot platforms, document-context features, and real-time analytics dashboards. I'm passionate about building scalable backend systems and delivering intuitive frontend experiences.",
   },
