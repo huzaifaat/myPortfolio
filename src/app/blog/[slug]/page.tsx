@@ -4,30 +4,32 @@ import { getBlogPost, blogPosts } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 
-const post = getBlogPost("from-code-to-leadership");
-
-export const metadata: Metadata = post
-  ? {
-      title: post.title,
-      description: post.description,
-      openGraph: {
-        title: post.title,
-        description: post.description,
-        type: "article",
-        publishedTime: post.date,
-        authors: ["Huzaifa Athar"],
-        tags: post.tags,
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: post.title,
-        description: post.description,
-      },
-    }
-  : {};
-
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.date,
+      authors: ["Huzaifa Athar"],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+  };
 }
 
 function renderMarkdown(content: string) {
@@ -89,11 +91,59 @@ function renderMarkdown(content: string) {
     .filter(Boolean);
 }
 
-export default function BlogPostPage() {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
   if (!post) notFound();
+
+  const blogPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: {
+      "@type": "Person",
+      name: "Huzaifa Athar",
+    },
+    keywords: post.tags.join(", "),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://huzaifaathar.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: "https://huzaifaathar.com/blog",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://huzaifaathar.com/blog/${post.slug}`,
+      },
+    ],
+  };
 
   return (
     <div className="noise">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="spotlight" />
       <div className="dot-grid" />
       <Navbar />

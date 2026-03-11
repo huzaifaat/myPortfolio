@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -86,34 +89,51 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Huzaifa Athar",
-  url: siteUrl,
-  jobTitle: "Technical Leader, Full Stack Developer & AI Engineer",
-  worksFor: {
-    "@type": "Organization",
-    name: "DigitLabs",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Huzaifa Athar",
+    url: siteUrl,
+    jobTitle: "Technical Leader, Full Stack Developer & AI Engineer",
+    description:
+      "Full Stack Developer & AI Engineer with 5+ years of experience building production-grade web apps, AI chatbots, and voice agents.",
+    worksFor: {
+      "@type": "Organization",
+      name: "DigitLabs",
+    },
+    knowsAbout: [
+      "Python", "Django", "FastAPI", "React", "Next.js", "TypeScript",
+      "AWS", "GCP", "Docker", "PostgreSQL", "MongoDB", "Redis",
+      "AI Chatbots", "Voice Agents", "Machine Learning",
+      "Team Leadership", "Project Management", "Client Relations",
+      "Software Architecture", "Product Strategy",
+    ],
+    sameAs: [
+      "https://linkedin.com/in/huzaifa-athar-b048a2120",
+      "https://github.com/huzaifaat",
+    ],
+    email: "huzaifaathar1@gmail.com",
+    telephone: "+923234125331",
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of Central Punjab",
+    },
+    image: `${siteUrl}/avatar.jpg`,
   },
-  knowsAbout: [
-    "Python", "Django", "FastAPI", "React", "Next.js", "TypeScript",
-    "AWS", "GCP", "Docker", "PostgreSQL", "MongoDB", "Redis",
-    "AI Chatbots", "Voice Agents", "Machine Learning",
-    "Team Leadership", "Project Management", "Client Relations",
-    "Software Architecture", "Product Strategy",
-  ],
-  sameAs: [
-    "https://linkedin.com/in/huzaifa-athar-b048a2120",
-    "https://github.com/huzaifaat",
-  ],
-  email: "huzaifaathar1@gmail.com",
-  telephone: "+923234125331",
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "University of Central Punjab",
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Huzaifa Athar",
+    url: siteUrl,
+    description:
+      "Portfolio of Huzaifa Athar, Full Stack Developer & AI Engineer.",
+    author: {
+      "@type": "Person",
+      name: "Huzaifa Athar",
+    },
   },
-};
+];
 
 export default function RootLayout({
   children,
@@ -130,6 +150,17 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
         {children}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

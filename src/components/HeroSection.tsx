@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import ChatInterface from "./ChatInterface";
 
 const roles = ["Technical Leader", "Full-Stack Developer", "Agentic AI Engineer"];
@@ -206,17 +207,13 @@ export default function HeroSection() {
 
               {/* Avatar image */}
               <div className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-2 border-border/50 shadow-2xl shadow-accent/20">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/avatar.jpg"
-                  alt="Huzaifa Athar"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                    target.parentElement!.classList.add("bg-gradient-to-br", "from-accent", "to-accent-2", "flex", "items-center", "justify-center");
-                    target.parentElement!.innerHTML = '<span class="text-white text-6xl font-black select-none">HA</span>';
-                  }}
+                  alt="Huzaifa Athar - Full Stack Developer & AI Engineer"
+                  fill
+                  sizes="(max-width: 640px) 160px, (max-width: 768px) 208px, (max-width: 1024px) 256px, 288px"
+                  className="object-cover"
+                  priority
                 />
               </div>
 
