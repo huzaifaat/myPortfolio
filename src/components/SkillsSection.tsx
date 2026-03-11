@@ -293,7 +293,7 @@ export default function SkillsSection() {
     },
     {
       // Vertical meridian — rotates up
-      items: techItems.slice(6, 13),  // MongoDB, Redis, AWS, Bedrock, GCP, Docker
+      items: techItems.slice(6, 12),  // MongoDB, Redis, AWS, Bedrock, GCP, Docker
       radius: globeRadius * 0.95,
       speed: -0.25,
       tilt: [Math.PI / 2, 0],
