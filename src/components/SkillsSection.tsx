@@ -2,28 +2,37 @@
 
 import { motion } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
+import type { IconType } from "react-icons";
+import {
+  SiPython, SiDjango, SiReact, SiNextdotjs, SiTypescript,
+  SiPostgresql, SiMongodb, SiRedis, SiGooglecloud, SiDocker,
+  SiFastapi, SiCelery, SiGit, SiJavascript, SiTailwindcss,
+  SiMysql,
+} from "react-icons/si";
+import { FaAws, FaRobot } from "react-icons/fa";
+import { VscAzure } from "react-icons/vsc";
 
 /* ── tech icons ── */
-const techItems = [
-  { name: "Python", icon: "🐍", color: "#3776AB" },
-  { name: "Django", icon: "🎸", color: "#092E20" },
-  { name: "React", icon: "⚛️", color: "#61DAFB" },
-  { name: "Next.js", icon: "▲", color: "#ffffff" },
-  { name: "TypeScript", icon: "TS", color: "#3178C6" },
-  { name: "PostgreSQL", icon: "🐘", color: "#4169E1" },
-  { name: "MongoDB", icon: "🍃", color: "#47A248" },
-  { name: "Redis", icon: "◆", color: "#DC382D" },
-  { name: "AWS", icon: "☁️", color: "#FF9900" },
-  { name: "Bedrock", icon: "🤖", color: "#FF9900" },
-  { name: "GCP", icon: "◎", color: "#4285F4" },
-  { name: "Docker", icon: "🐳", color: "#2496ED" },
-  { name: "FastAPI", icon: "⚡", color: "#009688" },
-  { name: "Celery", icon: "🌿", color: "#37B24D" },
-  { name: "Git", icon: "⑂", color: "#F05032" },
-  { name: "JavaScript", icon: "JS", color: "#F7DF1E" },
-  { name: "Tailwind", icon: "🌊", color: "#06B6D4" },
-  { name: "MySQL", icon: "🗄️", color: "#4479A1" },
-  { name: "Azure", icon: "☁️", color: "#0078D4" },
+const techItems: { name: string; icon: IconType; color: string }[] = [
+  { name: "Python", icon: SiPython, color: "#3776AB" },
+  { name: "Django", icon: SiDjango, color: "#092E20" },
+  { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { name: "Redis", icon: SiRedis, color: "#DC382D" },
+  { name: "AWS", icon: FaAws, color: "#FF9900" },
+  { name: "Bedrock", icon: FaRobot, color: "#FF9900" },
+  { name: "GCP", icon: SiGooglecloud, color: "#4285F4" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "FastAPI", icon: SiFastapi, color: "#009688" },
+  { name: "Celery", icon: SiCelery, color: "#37B24D" },
+  { name: "Git", icon: SiGit, color: "#F05032" },
+  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  { name: "Azure", icon: VscAzure, color: "#0078D4" },
 ];
 
 /*
@@ -81,7 +90,7 @@ function rotateZ(x: number, y: number, z: number, a: number) {
   };
 }
 
-/* ── Wireframe globe drawn on canvas ── */
+/* ── Wireframe globe with triangulated mesh ── */
 function WireGlobe({ size }: { size: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rotationRef = useRef(0);
@@ -97,40 +106,104 @@ function WireGlobe({ size }: { size: number }) {
     canvas.height = size * dpr;
     ctx.scale(dpr, dpr);
 
+    // Build sphere vertices: rows of latitude, columns of longitude
+    const latSegments = 24;
+    const lonSegments = 32;
+    const r = size * 0.44;
+    const cx = size / 2;
+    const cy = size / 2;
+    const perspective = size * 1.8;
+
     let raf: number;
 
     const draw = () => {
       ctx.clearRect(0, 0, size, size);
-      const cx = size / 2;
-      const cy = size / 2;
-      const r = size * 0.44;
+      const rot = rotationRef.current;
 
-      // Outer circle
-      ctx.strokeStyle = "rgba(139, 92, 246, 0.12)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.stroke();
+      // Generate 3D points on sphere and project to 2D
+      const points: { x: number; y: number; z: number; sx: number; sy: number }[][] = [];
 
-      // Latitude lines
-      for (let i = 1; i < 7; i++) {
-        const ratio = i / 7;
-        const y = cy - r + ratio * 2 * r;
-        const latR = Math.sqrt(r * r - (y - cy) * (y - cy));
-        ctx.strokeStyle = `rgba(139, 92, 246, ${0.04 + ratio * 0.03})`;
+      for (let lat = 0; lat <= latSegments; lat++) {
+        const theta = (lat / latSegments) * Math.PI;
+        const sinT = Math.sin(theta);
+        const cosT = Math.cos(theta);
+        const row: typeof points[0] = [];
+
+        for (let lon = 0; lon <= lonSegments; lon++) {
+          const phi = (lon / lonSegments) * Math.PI * 2 + rot;
+          const x3 = r * sinT * Math.cos(phi);
+          const y3 = r * cosT;
+          const z3 = r * sinT * Math.sin(phi);
+
+          const scale = perspective / (perspective + z3);
+          row.push({
+            x: x3, y: y3, z: z3,
+            sx: cx + x3 * scale,
+            sy: cy + y3 * scale,
+          });
+        }
+        points.push(row);
+      }
+
+      ctx.lineWidth = 0.5;
+
+      // Draw grid lines and diagonals forming right-angle triangles
+      for (let lat = 0; lat < latSegments; lat++) {
+        for (let lon = 0; lon < lonSegments; lon++) {
+          const tl = points[lat][lon];
+          const tr = points[lat][lon + 1];
+          const bl = points[lat + 1][lon];
+          const br = points[lat + 1][lon + 1];
+
+          const avgZ = (tl.z + tr.z + bl.z + br.z) / 4;
+          const normalDepth = (avgZ + r) / (2 * r);
+          const alpha = 0.04 + normalDepth * 0.18;
+
+          ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+
+          // Horizontal line
+          ctx.beginPath();
+          ctx.moveTo(tl.sx, tl.sy);
+          ctx.lineTo(tr.sx, tr.sy);
+          ctx.stroke();
+
+          // Vertical line
+          ctx.beginPath();
+          ctx.moveTo(tl.sx, tl.sy);
+          ctx.lineTo(bl.sx, bl.sy);
+          ctx.stroke();
+
+          // Diagonal (creates two right-angle triangles)
+          ctx.beginPath();
+          ctx.moveTo(tr.sx, tr.sy);
+          ctx.lineTo(bl.sx, bl.sy);
+          ctx.stroke();
+        }
+      }
+
+      // Bottom edges of last row
+      for (let lon = 0; lon < lonSegments; lon++) {
+        const bl = points[latSegments][lon];
+        const br = points[latSegments][lon + 1];
+        const avgZ = (bl.z + br.z) / 2;
+        const alpha = 0.04 + ((avgZ + r) / (2 * r)) * 0.18;
+        ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
         ctx.beginPath();
-        ctx.ellipse(cx, y, latR, latR * 0.08, 0, 0, Math.PI * 2);
+        ctx.moveTo(bl.sx, bl.sy);
+        ctx.lineTo(br.sx, br.sy);
         ctx.stroke();
       }
 
-      // Longitude lines (rotating)
-      const rot = rotationRef.current;
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI + rot;
-        const rx = Math.abs(Math.cos(angle)) * r;
-        ctx.strokeStyle = `rgba(139, 92, 246, ${0.05 + Math.abs(Math.cos(angle)) * 0.06})`;
+      // Right edges of last column
+      for (let lat = 0; lat < latSegments; lat++) {
+        const tr = points[lat][lonSegments];
+        const br = points[lat + 1][lonSegments];
+        const avgZ = (tr.z + br.z) / 2;
+        const alpha = 0.04 + ((avgZ + r) / (2 * r)) * 0.18;
+        ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
         ctx.beginPath();
-        ctx.ellipse(cx, cy, rx, r, 0, 0, Math.PI * 2);
+        ctx.moveTo(tr.sx, tr.sy);
+        ctx.lineTo(br.sx, br.sy);
         ctx.stroke();
       }
 
@@ -172,12 +245,10 @@ function GlobeIcons({ orbits, containerSize, perspective }: {
         const baseAngle = (i / orbit.items.length) * Math.PI * 2;
         const a = baseAngle + angleRef.current * orbit.speed;
 
-        // Start on XZ plane (horizontal circle)
         let px = orbit.radius * Math.cos(a);
         let py = 0;
         let pz = orbit.radius * Math.sin(a);
 
-        // Apply orbit tilt
         const r1 = rotateX(px, py, pz, orbit.tilt[0]);
         const r2 = rotateZ(r1.x, r1.y, r1.z, orbit.tilt[1]);
 
@@ -212,51 +283,54 @@ function GlobeIcons({ orbits, containerSize, perspective }: {
     return () => cancelAnimationFrame(raf);
   }, [compute]);
 
-  // Sort by z so front items render on top
   const sorted = [...positions].sort((a, b) => a.z - b.z);
 
   return (
     <>
       {sorted.map(({ tech, x, y, z, scale }) => {
-        // Normalize z for opacity: back of sphere = dim, front = bright
         const maxR = 250;
-        const normalZ = (z + maxR) / (2 * maxR); // 0 = back, 1 = front
-        const opacity = 0.3 + normalZ * 0.7;
-        const iconScale = 0.6 + normalZ * 0.5;
+        const normalZ = (z + maxR) / (2 * maxR);
+
+        const opacity = normalZ < 0.35 ? 0.15
+          : normalZ < 0.65 ? 0.15 + ((normalZ - 0.35) / 0.3) * 0.85
+          : 1;
+        const containerScale = 0.6 + normalZ * 0.5;
+        const isFront = normalZ > 0.5;
+
+        const grayscale = normalZ < 0.65 ? (1 - normalZ) * 100 : 0;
+        const brightness = normalZ < 0.65 ? 0.5 + normalZ * 0.5 : 1;
+        const blur = normalZ < 0.5 ? (1 - normalZ) * 0.5 : 0;
 
         return (
           <div
             key={tech.name}
-            className="absolute flex flex-col items-center gap-1.5 pointer-events-none"
+            className="absolute flex flex-col items-center justify-center"
             style={{
               left: x,
               top: y,
-              transform: `translate(-50%, -50%) scale(${iconScale * scale})`,
+              transform: `translate(-50%, -50%) scale(${containerScale * scale})`,
               opacity,
               zIndex: Math.round(normalZ * 20),
+              pointerEvents: isFront ? "auto" : "none",
+              transition: "opacity 0.5s ease-out, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
             }}
           >
-            <div
-              className="w-11 h-11 sm:w-14 sm:h-14 md:w-[72px] md:h-[72px] rounded-xl sm:rounded-2xl flex items-center justify-center text-lg sm:text-2xl md:text-3xl font-black shadow-2xl"
-              style={{
-                background: `linear-gradient(135deg, ${tech.color}40, ${tech.color}18)`,
-                color: tech.color,
-                boxShadow: `0 0 25px ${tech.color}35, 0 0 50px ${tech.color}12`,
-                textShadow: `0 0 12px ${tech.color}90`,
-              }}
-            >
-              {tech.icon}
+            <div className="relative z-10 drop-shadow-lg transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] group hover:scale-[1.35] cursor-pointer">
+              <tech.icon size={56} color={tech.color} style={{
+                filter: `grayscale(${grayscale}%) brightness(${brightness}) blur(${blur}px)`,
+                transition: "filter 0.3s",
+              }} />
+              <span
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[11px] font-bold tracking-wider uppercase text-center whitespace-nowrap px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300 pointer-events-none"
+                style={{
+                  color: "#fff",
+                  background: "var(--accent, #8b5cf6)",
+                  boxShadow: "0 4px 12px rgba(139, 92, 246, 0.4)",
+                }}
+              >
+                {tech.name}
+              </span>
             </div>
-            <span
-              className="text-[8px] sm:text-[10px] md:text-xs font-mono font-semibold whitespace-nowrap"
-              style={{
-                color: tech.color,
-                textShadow: `0 0 8px ${tech.color}50`,
-                opacity: Math.max(0.6, opacity),
-              }}
-            >
-              {tech.name}
-            </span>
           </div>
         );
       })}
@@ -282,25 +356,21 @@ export default function SkillsSection() {
   const globeRadius = responsiveSize * 0.38;
   const perspective = responsiveSize * 1.8;
 
-  // 3 orbits with different tilts so icons spread across the sphere
   const orbits: OrbitConfig[] = [
     {
-      // Horizontal equator — rotates left
-      items: techItems.slice(0, 6),  // Python, Django, React, Next.js, TS, PostgreSQL
+      items: techItems.slice(0, 7),
       radius: globeRadius,
       speed: 0.3,
       tilt: [0, 0],
     },
     {
-      // Vertical meridian — rotates up
-      items: techItems.slice(6, 12),  // MongoDB, Redis, AWS, Bedrock, GCP, Docker
+      items: techItems.slice(7, 13),
       radius: globeRadius * 0.95,
       speed: -0.25,
       tilt: [Math.PI / 2, 0],
     },
     {
-      // Diagonal 45° — rotates tilted
-      items: techItems.slice(12),  // FastAPI, Celery, Git, JS, Tailwind, MySQL, Azure
+      items: techItems.slice(13),
       radius: globeRadius * 0.9,
       speed: 0.2,
       tilt: [Math.PI / 4, Math.PI / 6],
@@ -323,7 +393,6 @@ export default function SkillsSection() {
           </h2>
         </motion.div>
 
-        {/* Globe with 3D orbiting icons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -335,16 +404,13 @@ export default function SkillsSection() {
             className="relative"
             style={{ width: responsiveSize, height: responsiveSize }}
           >
-            {/* Center glow */}
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/8 blur-3xl"
               style={{ width: responsiveSize * 0.7, height: responsiveSize * 0.7 }}
             />
 
-            {/* Wireframe globe */}
             <WireGlobe size={responsiveSize} />
 
-            {/* 3D orbiting icons */}
             <GlobeIcons
               orbits={orbits}
               containerSize={responsiveSize}
