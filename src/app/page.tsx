@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import BentoGrid from "@/components/BentoGrid";
+import ProjectsSection from "@/components/ProjectsSection";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SkillsSection from "@/components/SkillsSection";
 import VoiceAgentsSection from "@/components/VoiceAgentsSection";
@@ -32,13 +33,16 @@ export default function Home() {
             <div className="text-center mb-4">
               <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">About Me</span>
               <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-                Who <span className="gradient-text">I am</span>
+                Who <span className="font-serif italic font-normal gradient-text">I am</span>
               </h2>
             </div>
           </ScrollReveal>
           <BentoGrid />
         </div>
       </section>
+
+      {/* SELECTED WORK */}
+      <ProjectsSection />
 
       {/* EXPERIENCE */}
       <section id="experience" className="py-32 px-6">
@@ -47,7 +51,7 @@ export default function Home() {
             <div className="text-center mb-4">
               <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Experience</span>
               <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-                Where I&apos;ve <span className="gradient-text">worked</span>
+                Where I&apos;ve <span className="font-serif italic font-normal gradient-text">worked</span>
               </h2>
             </div>
           </ScrollReveal>

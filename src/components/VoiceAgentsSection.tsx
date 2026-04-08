@@ -123,7 +123,7 @@ export default function VoiceAgentsSection() {
         >
           <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">AI Voice Agents</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight">
-            Voice <span className="gradient-text">AI Products</span>
+            Voice <span className="font-serif italic font-normal gradient-text">AI Products</span>
           </h2>
           <p className="mt-4 text-fg-secondary max-w-lg mx-auto">
             I build intelligent voice agents that handle real conversations, from dental reception to appointment scheduling.

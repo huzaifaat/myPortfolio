@@ -31,7 +31,7 @@ export default function BlogPage() {
         <div className="mb-16">
           <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Blog</span>
           <h1 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight">
-            Thoughts & <span className="gradient-text">Insights</span>
+            Thoughts & <span className="font-serif italic font-normal gradient-text">Insights</span>
           </h1>
           <p className="mt-4 text-fg-secondary max-w-lg">
             On engineering, AI, leadership, and building products that matter.

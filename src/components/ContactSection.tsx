@@ -49,7 +49,7 @@ export default function ContactSection() {
         >
           <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Contact</span>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
-            Let&apos;s work <span className="gradient-text">together</span>
+            Let&apos;s work <span className="font-serif italic font-normal gradient-text">together</span>
           </h2>
           <p className="mt-4 text-fg-secondary max-w-md mx-auto">
             Got a project in mind? I&apos;m always open to discussing new opportunities and ideas.

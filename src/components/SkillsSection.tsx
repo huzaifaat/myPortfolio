@@ -389,7 +389,7 @@ export default function SkillsSection() {
         >
           <span className="text-xs font-mono text-accent uppercase tracking-[0.2em]">Tech Stack</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight">
-            My <span className="gradient-text">Skills</span>
+            My <span className="font-serif italic font-normal gradient-text">Skills</span>
           </h2>
         </motion.div>
 
