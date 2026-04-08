@@ -12,7 +12,7 @@ export default function Avatar3D() {
     const img = new window.Image();
     img.onload = () => setImgError(false);
     img.onerror = () => setImgError(true);
-    img.src = "/avatar.jpg";
+    img.src = "/profile.PNG";
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -70,7 +70,7 @@ export default function Avatar3D() {
           {!imgError ? (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
-              src="/avatar.jpg"
+              src="/profile.PNG"
               alt="Huzaifa Athar"
               className="w-full h-full object-cover"
             />

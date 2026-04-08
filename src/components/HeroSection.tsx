@@ -208,11 +208,11 @@ export default function HeroSection() {
               {/* Avatar image */}
               <div className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-2 border-border/50 shadow-2xl shadow-accent/20">
                 <Image
-                  src="/avatar.jpg"
+                  src="/profile.PNG"
                   alt="Huzaifa Athar - Full Stack Developer & AI Engineer"
                   fill
                   sizes="(max-width: 640px) 160px, (max-width: 768px) 208px, (max-width: 1024px) 256px, 288px"
-                  className="object-cover"
+                  className="object-cover object-top"
                   priority
                 />
               </div>

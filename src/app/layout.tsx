@@ -119,7 +119,7 @@ const jsonLd = [
       "@type": "CollegeOrUniversity",
       name: "University of Central Punjab",
     },
-    image: `${siteUrl}/avatar.jpg`,
+    image: `${siteUrl}/profile.PNG`,
   },
   {
     "@context": "https://schema.org",
