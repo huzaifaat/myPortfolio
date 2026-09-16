@@ -4,13 +4,22 @@ import { motion } from "framer-motion";
 
 const experiences = [
   {
-    company: "DigitLabs",
-    role: "Full Stack Engineer",
-    period: "Sept 2024 - Present",
+    company: "Salestech Data & AI",
+    role: "Senior Software Engineer (AI)",
+    period: "Dec 2025 - Present",
     current: true,
     description:
-      "Architecting AI-powered chatbot platform backend with Django. Building analytics dashboards, async task processing with Celery/Redis, and optimizing logistics workflows with PostgreSQL.",
-    tech: ["Django", "PostgreSQL", "Celery", "Redis", "Python"],
+      "Built an agentic compliance pipeline for a safety-critical rail systems manufacturer, using a supervisor-worker multi-agent architecture (GPT-4o, Claude). It cuts certification cross-referencing from weeks to minutes, with every conclusion traced back to its source documents and an engineer approval step. Also built a data quality platform for a pharmaceutical client monitoring 15 European markets, with automated alerting.",
+    tech: ["Python", "LangGraph", "GPT-4o", "Claude", "Multi-Agent", "RAG", "Azure"],
+  },
+  {
+    company: "DigitLabs",
+    role: "Full Stack Engineer (AI Products)",
+    period: "Sep 2024 - Dec 2025",
+    current: false,
+    description:
+      "Built the Django backend and API layer for an LLM-powered chatbot platform, integrated ML-driven insights with data scientists, built analytics dashboards, and delivered a battery-testing platform connecting OEMs and testing labs.",
+    tech: ["Django", "PostgreSQL", "Celery", "Redis", "LLMs"],
   },
   {
     company: "MTP",

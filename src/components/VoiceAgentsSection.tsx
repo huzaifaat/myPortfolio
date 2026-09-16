@@ -58,7 +58,7 @@ function VoiceAIVisual() {
         </div>
       </motion.div>
 
-      {/* Sound wave bars — left side */}
+      {/* Sound wave bars - left side */}
       <div className="absolute left-[8%] sm:left-[15%] flex items-center gap-1 h-16 sm:h-20">
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
@@ -70,7 +70,7 @@ function VoiceAIVisual() {
         ))}
       </div>
 
-      {/* Sound wave bars — right side */}
+      {/* Sound wave bars - right side */}
       <div className="absolute right-[8%] sm:right-[15%] flex items-center gap-1 h-16 sm:h-20">
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div

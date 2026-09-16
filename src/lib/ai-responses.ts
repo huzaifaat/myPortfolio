@@ -1,5 +1,10 @@
 // Pre-built responses based on Huzaifa's resume
 // The chat matches keywords and returns contextual responses
+//
+// Rules for these answers:
+// - Never name clients. If asked who the clients are, say identities are confidential.
+// - Never use em dashes or en dashes. Use a colon, comma, full stop or parentheses.
+// - Do not claim tools or experience that are not in this knowledge base.
 
 interface QAEntry {
   keywords: string[];
@@ -8,44 +13,84 @@ interface QAEntry {
 
 const qaDatabase: QAEntry[] = [
   {
-    keywords: ["who are you", "about you", "about yourself", "yourself", "introduce", "who is huzaifa"],
+    keywords: ["who are you", "about you", "about yourself", "yourself", "introduce", "who is huzaifa", "what do you do", "what do you"],
     response:
-      "I'm Huzaifa Athar, a Technical Leader, Full Stack Developer & AI Engineer with 5+ years of experience. I don't just build software. I lead teams, manage client relationships, and own the full lifecycle from project acquisition to deployment and maintenance.\n\nI've scaled products across 3 companies, led cross-functional teams, and shipped 10+ production products. I specialize in Django, React, Next.js, and AI-integrated systems including chatbot platforms and voice agents.\n\nWhether it's an individual project or coordinating multiple teams, I plan it, execute it, and deliver it at the highest standard.",
+      "I'm Huzaifa Athar, an AI / Machine Learning Engineer with 5+ years of software engineering experience, including hands-on work designing, building and deploying production AI systems.\n\nI specialise in LLM applications, multi-agent architectures, RAG and document intelligence, and I own the full pipeline from data preparation and evaluation through containerised cloud deployment and monitoring.\n\nI work directly with enterprise clients in regulated industries and can explain model behaviour and progress to non-technical stakeholders.",
+  },
+  {
+    keywords: ["current role", "currently", "salestech", "now", "present", "latest job"],
+    response:
+      "I'm currently a **Senior Software Engineer (AI)** at **Salestech Data & AI** (Dec 2025 - Present), working as a forward-deployed AI engineer embedded with enterprise clients.\n\nI built an agentic compliance pipeline using a supervisor-worker multi-agent architecture (GPT-4o, Claude) that cuts certification cross-referencing from weeks to minutes, with every conclusion traced back to its source documents and an engineer approval step.\n\nI also built a data quality platform monitoring 15 European markets, with automated alerting.",
   },
   {
     keywords: ["experience", "work", "job", "career", "history", "company"],
     response:
-      "I have 5+ years of professional experience across three companies:\n\n**DigitLabs** (Sept 2024 - Present) | Full Stack Engineer\nBuilding AI-powered chatbot platforms, analytics dashboards, and battery testing logistics backends using Django, Celery, Redis, and PostgreSQL.\n\n**MTP** (Feb 2022 - Aug 2024) | Software Engineer\nDeveloped backend services in Django & FastAPI, built frontends with React & Next.js, and managed AWS deployments across multiple products.\n\n**Codegic** (Aug 2020 - Feb 2022) | Associate Software Engineer\nLed frontend development with React, built reusable components, and collaborated in Agile workflows.",
+      "I have 5+ years of professional experience:\n\n**Salestech Data & AI** (Dec 2025 - Present) | Senior Software Engineer (AI)\nForward-deployed AI engineer building agentic and data platforms for enterprise clients, including an agentic compliance pipeline and a data quality platform monitoring 15 European markets.\n\n**DigitLabs** (Sep 2024 - Dec 2025) | Full Stack Engineer (AI Products)\nBuilt the Django backend and API layer for an LLM-powered chatbot platform, integrated ML-driven insights with data scientists, built analytics dashboards, and delivered a battery-testing platform connecting OEMs and testing labs.\n\n**MTP** (Feb 2022 - Aug 2024) | Software Engineer\nDeveloped backend services in Django and FastAPI, built frontends with React and Next.js, and managed AWS deployments across multiple products.\n\n**Codegic** (Aug 2020 - Feb 2022) | Associate Software Engineer\nLed frontend development with React, built reusable components, and collaborated in Agile workflows.",
   },
   {
     keywords: ["skill", "tech", "stack", "technology", "language", "framework", "tool"],
     response:
-      "Here's my tech stack:\n\n**Languages & Frameworks:** Python, JavaScript, TypeScript, Django, FastAPI, React.js, Next.js, Redux, HTML, CSS\n\n**Databases:** PostgreSQL, MySQL, MongoDB, Redis\n\n**Cloud & AI:** AWS (EC2, S3, Bedrock, CloudWatch), GCP, Azure, Docker\n\n**Other:** Celery, WebSockets, Git, Material UI, Tailwind CSS\n\n**Soft Skills:** Effective communication, collaboration, problem-solving, and adaptability.",
+      "Here's my tech stack, AI first:\n\n**AI / ML:** LLMs (GPT-4o, Claude), LangChain, LangGraph, CrewAI, RAG, NLP, Multi-Agent Systems, AWS Bedrock, ElevenLabs, Pandas, NumPy\n\n**Data & Vector:** PostgreSQL, MySQL, MongoDB, FAISS, pgvector, Redis\n\n**Backend & Frontend:** Python, FastAPI, Django, Celery, TypeScript, JavaScript, React, Next.js, Tailwind\n\n**Cloud & MLOps:** Docker, Git, CI/CD, AWS, Azure, GCP, OCI",
+  },
+  {
+    keywords: ["agentic", "compliance", "rail", "multi-agent", "multi agent", "supervisor", "certification", "traceability", "agent architecture"],
+    response:
+      "**Agentic Compliance Engine** is a supervisor-worker multi-agent system I built for a safety-critical rail systems manufacturer.\n\n**The problem:** Senior engineers cross-referenced product specifications against regulation and past certifications by hand, taking weeks to months per pass.\n\n**What shipped:**\n- An agentic pipeline reading specification, regulation and certification history together\n- A supervisor-worker agent architecture with each agent scoped to one job\n- Every conclusion tied to its source documents\n- Engineer review and approval on every output\n\n**Outcomes:** compliance cross-referencing dropped from weeks to minutes, with full evidence traceability per conclusion and senior engineering hours returned. Built with Python, LangGraph, GPT-4o and Claude.",
+  },
+  {
+    keywords: ["fraud", "fintech", "payments", "risk scoring", "risk", "transactions", "scoring"],
+    response:
+      "**FinTech: real-time risk scoring and fraud detection.** For a payments platform handling 40M+ transactions per month across the US and EU.\n\n**The problem:** Fraud losses grew faster than volume, models refreshed only quarterly, and manual review took six hours per case.\n\n**What shipped:**\n- A real-time scoring service (sub-50ms at p99)\n- A graph-based fraud feature store across accounts, devices and merchants\n- An eval harness with golden fraud sets gating every release\n- An analyst case console where the model abstains and humans decide\n\n**Outcomes:** false positives down 42%, case review from 6 hours to 11 minutes, and model refresh moved from quarterly to daily.",
+  },
+  {
+    keywords: ["insurance", "documents", "document intelligence", "claims", "extraction", "workflow agents", "straight-through"],
+    response:
+      "**Insurance: AI document intelligence and workflow agents.** For an insurance operations client processing 60,000 documents per month across 4 systems of record.\n\n**The problem:** Claims and correspondence were keyed in by hand, with 14-day backlogs and errors caught weeks later.\n\n**What shipped:**\n- An LLM extraction pipeline with confidence-gated outputs\n- Workflow agents filing into four systems of record\n- An exception review console\n- Continuous evaluation against human corrections\n\n**Outcomes:** processing from 14 days to 4 hours, straight-through rate from 12% to 78%, and 1,200 analyst hours per month reclaimed.",
+  },
+  {
+    keywords: ["healthcare", "hipaa", "readmission", "patient", "clinical", "lakehouse", "phi", "population health"],
+    response:
+      "**Healthcare: HIPAA-compliant patient analytics and AI pipelines.** For a provider network with 12 sites in the United States.\n\n**The problem:** Leadership needed population-health insight, but patient data could not leave the compliance boundary and analyses waited weeks.\n\n**What shipped:**\n- A governed lakehouse inside the client's own cloud tenancy\n- De-identification at ingestion\n- Readmission-risk models with clinician-readable audit trails\n- Role-based, row-level access\n\n**Outcomes:** time to insight from 3 weeks to same day, readmission AUC from 0.68 to 0.84, and zero PHI incidents in 24 months.",
+  },
+  {
+    keywords: ["logistics", "supply chain", "forecasting", "route", "routing", "demand", "3pl", "stockout", "optimisation", "optimization"],
+    response:
+      "**Supply Chain: real-time route optimisation and demand forecasting.** For a regional 3PL with 400+ vehicles across 6 distribution centres.\n\n**The problem:** Routes were planned overnight on stale demand data, causing half-empty return trips and stockouts.\n\n**What shipped:**\n- A live demand model on streaming telemetry\n- Event-triggered route re-optimisation\n- SKU-level forecasts wired into replenishment\n- A planner console with auditable overrides\n\n**Outcomes:** cost per route down 18%, forecast accuracy from 71% to 93%, and stockout events down 37% year on year.",
+  },
+  {
+    keywords: ["case study", "case studies", "outcomes", "results", "industries", "industry"],
+    response:
+      "I present my work as case studies, from problem to production:\n\n- **Rail & Manufacturing:** an agentic compliance engine that took compliance cross-referencing from weeks to minutes\n- **FinTech:** real-time risk scoring and fraud detection\n- **Insurance:** AI document intelligence and workflow agents\n- **Healthcare:** HIPAA-compliant patient analytics and AI pipelines\n- **Supply Chain:** real-time route optimisation and demand forecasting\n\nAsk me about any one of them (for example fraud, insurance documents, HIPAA, or logistics) and I'll give you the problem, what shipped, and the outcomes.",
+  },
+  {
+    keywords: ["client", "clients", "client name", "client names", "who are your clients", "which companies", "who do you work for"],
+    response:
+      "I work directly with enterprise clients in regulated industries such as rail and manufacturing, financial services, insurance, healthcare and logistics.\n\nClient identities are confidential, so I describe the work by industry and outcome rather than by name. For example, one project was for a German manufacturer of safety-critical rail systems, and another was a data quality platform for a pharmaceutical client monitoring 15 European markets.",
   },
   {
     keywords: ["django", "python", "backend", "api"],
     response:
-      "Django and Python are at the core of my backend expertise. I've built and maintained RESTful APIs, implemented async task processing with Celery & Redis, designed analytics dashboards, and optimized PostgreSQL query performance. At DigitLabs, I developed the entire backend for an AI-powered chatbot platform using Django. I also have strong experience with FastAPI for performance-critical microservices.",
+      "Python is at the core of my work, across both AI systems and backend services. I build LLM applications, multi-agent pipelines and RAG systems in Python, and I use FastAPI and Django for the API and service layer. At DigitLabs I built the entire Django backend for an LLM-powered chatbot platform, with async processing on Celery and Redis and PostgreSQL for storage.",
   },
   {
     keywords: ["react", "next", "frontend", "ui", "javascript", "typescript"],
     response:
-      "I have extensive frontend experience with React.js and Next.js. I've built responsive, user-friendly interfaces across multiple products, implemented reusable component libraries, and worked with Redux for state management. I'm proficient in TypeScript, ES6+, Material UI, and modern CSS. This portfolio itself is built with Next.js and Tailwind CSS!",
+      "Alongside my AI work I have solid frontend experience with React and Next.js. I've built responsive interfaces, reusable component libraries, and worked with TypeScript across multiple products. This portfolio itself is built with Next.js and Tailwind CSS.",
   },
   {
-    keywords: ["ai", "chatbot", "machine learning", "ml"],
+    keywords: ["ai", "chatbot", "machine learning", "ml", "llm", "rag", "agent", "agents"],
     response:
-      "I've worked extensively on AI-integrated products:\n\n**At DigitLabs:** Built the backend for an AI-powered chatbot platform: APIs for LLM communication, document-based contextual input, and analytics dashboards.\n\n**AI Voice Agents:** I've also developed conversational AI voice agents including a **Dental Receptionist AI** that handles patient calls and FAQs, and an **Appointment Booking Agent** that schedules, reschedules, and cancels appointments via voice with calendar integration.\n\nMy final year project was in Machine Learning & Image Processing.",
+      "I design, build and deploy production AI systems end to end:\n\n**Agentic systems:** A supervisor-worker multi-agent compliance engine (GPT-4o, Claude, LangGraph) that cuts certification cross-referencing from weeks to minutes, with full source traceability and engineer approval.\n\n**RAG & document intelligence:** Custom RAG pipelines over enterprise data lakes, plus LLM extraction pipelines with confidence-gated outputs.\n\n**Voice agents:** A Dental Receptionist AI and an Appointment Booking Agent built with ElevenLabs.\n\nI own the full pipeline from data preparation and evaluation through containerised cloud deployment and monitoring.",
   },
   {
-    keywords: ["voice agent", "voice agents", "ai voice", "voice", "agent", "dental", "receptionist", "appointment", "booking", "call"],
+    keywords: ["voice agent", "voice agents", "ai voice", "voice", "dental", "receptionist", "appointment", "booking", "call"],
     response:
-      "I've built AI-powered voice agents that handle real phone conversations:\n\n**Dental Receptionist AI:** Handles incoming calls for dental clinics, greeting patients, answering FAQs about services, hours, and insurance, and intelligently routing calls to the right department. Available 24/7.\n\n**Appointment Booking Agent:** A conversational AI that schedules, reschedules, and cancels appointments via voice. It integrates with calendar systems, handles time zone logic, and sends automated confirmations.\n\nBoth agents feature natural conversation flow, context awareness, and seamless handoff to human staff when needed.",
+      "I've built AI-powered voice agents that handle real phone conversations:\n\n**Dental Receptionist AI:** Handles incoming calls for dental clinics in Dutch and English, greeting patients, answering FAQs about services, hours, and insurance, and routing calls. Built with ElevenLabs and available 24/7.\n\n**Appointment Booking Agent:** A conversational AI that schedules, reschedules, and cancels appointments via voice. It integrates with calendar systems, handles time zone logic, and sends automated confirmations.",
   },
   {
     keywords: ["education", "degree", "university", "college", "study"],
     response:
-      "I hold a **Bachelor's Degree in Computer Science** from the University of Central Punjab, Lahore, Pakistan. My final year project focused on Machine Learning & Image Processing. Prior to that, I completed my F.Sc Pre-Engineering from Punjab Group of Colleges, Lahore.",
+      "I hold a **Bachelor's Degree in Computer Science** from the University of Central Punjab, Lahore, Pakistan. My final year project focused on Machine Learning and Image Processing. Prior to that, I completed my F.Sc Pre-Engineering from Punjab Group of Colleges, Lahore.",
   },
   {
     keywords: ["contact", "email", "phone", "reach", "hire", "connect"],
@@ -55,22 +100,22 @@ const qaDatabase: QAEntry[] = [
   {
     keywords: ["project", "portfolio", "built", "created", "developed"],
     response:
-      "Throughout my career, I've worked on diverse projects:\n\n- **AI Chatbot Platform:** Full backend with Django, document uploads, contextual AI responses, and analytics dashboards\n- **AI Voice Agents:** Dental Receptionist AI & Appointment Booking Agent with natural conversation flow\n- **Battery Testing Logistics Platform:** Django/PostgreSQL backend with multiple external API integrations\n- **Multiple SaaS Products at MTP:** Full-stack apps with Django/FastAPI backends and React/Next.js frontends\n- **Frontend Modules at Codegic:** Reusable React component libraries across multiple products\n\nEach project involved end-to-end development from design to AWS deployment.",
+      "A selection of what I've built:\n\n- **Agentic Compliance Engine:** A supervisor-worker multi-agent system with full source traceability and engineer review\n- **Data Intelligence Chatbot:** A custom RAG pipeline over a data lake powering an LLM chatbot\n- **AI Voice Agents:** Dental Receptionist AI and Appointment Booking Agent\n- **Data Quality Guardian:** Automated monitoring across 15 markets with severity-based alerting\n- **Battery Testing Platform:** Connecting OEMs and testing labs from prototype to production\n\nI also present deeper case studies across FinTech, Insurance, Healthcare and Supply Chain. Ask me about any of them.",
   },
   {
-    keywords: ["aws", "deploy", "cloud", "devops", "docker", "gcp", "bedrock", "google cloud"],
+    keywords: ["aws", "deploy", "cloud", "devops", "docker", "gcp", "bedrock", "azure", "oci", "mlops"],
     response:
-      "I have hands-on experience with cloud platforms and DevOps:\n\n- **AWS:** EC2, S3, CloudWatch, and **Bedrock** for managed AI/ML model access\n- **GCP:** Google Cloud Platform for scalable cloud infrastructure\n- **Azure:** Additional cloud platform experience\n- **Docker:** Containerized applications for consistent deployments\n- **Git/GitHub:** Version control and collaborative development\n\nI've managed deployments across AWS and GCP, resolving issues promptly to maintain optimal performance and scalability.",
+      "I own deployment and operations for the systems I build:\n\n- **Cloud:** AWS, Azure, GCP and OCI\n- **AI infrastructure:** AWS Bedrock for managed model access\n- **Containers & MLOps:** Docker for containerised deployment, with monitoring and CI/CD\n- **Version control:** Git\n\nI take AI systems from data preparation and evaluation through containerised cloud deployment and monitoring.",
   },
   {
-    keywords: ["digitlabs", "current"],
+    keywords: ["digitlabs"],
     response:
-      "At **DigitLabs** (Sept 2024 - Present), I'm working as a Full Stack Engineer where I:\n\n- Built the backend for an AI-powered chatbot platform using Django\n- Created an attachment module for document-based contextual input\n- Designed analytics dashboards for chatbot metrics and session insights\n- Implemented async processing with Celery & Redis\n- Optimized Django/PostgreSQL workflows for a battery testing logistics platform\n- Collaborate with data scientists to integrate ML-driven insights",
+      "At **DigitLabs** (Sep 2024 - Dec 2025), I worked as a Full Stack Engineer (AI Products), where I:\n\n- Built the Django backend and API layer for an LLM-powered chatbot platform\n- Integrated ML-driven insights together with data scientists\n- Built analytics dashboards for chatbot metrics and session insights\n- Delivered a battery-testing platform connecting OEMs and testing labs\n- Implemented async processing with Celery and Redis on PostgreSQL",
   },
   {
     keywords: ["mtp"],
     response:
-      "At **MTP** (Feb 2022 - Aug 2024), I worked as a Software Engineer across multiple applications:\n\n- Developed backend services in Django and FastAPI\n- Built and maintained RESTful APIs for seamless data exchange\n- Created FastAPI microservices improving response times\n- Built frontend interfaces with React and Next.js\n- Managed AWS deployments (EC2, S3, CloudWatch)\n- Maintained comprehensive technical documentation",
+      "At **MTP** (Feb 2022 - Aug 2024), I worked as a Software Engineer across multiple applications:\n\n- Developed backend services in Django and FastAPI\n- Built and maintained RESTful APIs for seamless data exchange\n- Created FastAPI microservices improving response times\n- Built frontend interfaces with React and Next.js\n- Managed AWS deployments (EC2, S3, CloudWatch)",
   },
   {
     keywords: ["codegic"],
@@ -80,39 +125,39 @@ const qaDatabase: QAEntry[] = [
   {
     keywords: ["fastapi", "microservice"],
     response:
-      "I have strong experience with FastAPI, which I used at MTP for performance-critical microservices. FastAPI's async capabilities allowed me to build high-performance APIs with significantly improved response times compared to traditional frameworks. Combined with Python type hints, it provides excellent developer experience with automatic API documentation.",
+      "I have strong experience with FastAPI, which I use for performance-critical services and for serving AI systems. Its async capabilities and Python type hints let me build high-performance APIs with automatic documentation, which pairs well with LLM and RAG backends.",
   },
   {
-    keywords: ["database", "sql", "postgres", "mysql", "mongo", "nosql"],
+    keywords: ["database", "sql", "postgres", "mysql", "mongo", "nosql", "vector", "faiss", "pgvector"],
     response:
-      "I have extensive experience with both SQL and NoSQL databases:\n\n- **PostgreSQL:** My primary database, used across DigitLabs and MTP projects for complex queries and optimized performance\n- **MongoDB:** NoSQL document database for flexible, schema-less data models\n- **MySQL:** Additional experience with MySQL-based systems\n- **Redis:** In-memory data store for caching and real-time operations\n- **Query Optimization:** Structured query logic, reduced data duplication, and enhanced real-time reporting\n- **Data Handling:** Proficient with JSON structured data, Pandas, and NumPy",
+      "I work across relational, document and vector stores:\n\n- **PostgreSQL:** My primary database for complex queries and optimised performance\n- **pgvector & FAISS:** Vector search for RAG and semantic retrieval\n- **MongoDB:** Flexible, schema-less document data\n- **MySQL:** Additional relational experience\n- **Redis:** Caching and real-time operations\n- **Data handling:** Pandas and NumPy for preparation and analysis",
   },
   {
-    keywords: ["lead", "leader", "leadership", "manage", "manager", "team", "client", "project management", "ceo", "planning", "execution"],
+    keywords: ["lead", "leader", "leadership", "manage", "manager", "team", "project management", "stakeholder", "planning"],
     response:
-      "Leadership is at the core of what I do. Here's how I operate:\n\n**Client Acquisition & Dealing:** I engage directly with clients, understanding their vision, scoping requirements, and translating business needs into technical roadmaps.\n\n**Project Planning & Architecture:** From system design to sprint planning, I lay the groundwork before a single line of code is written.\n\n**Team Leadership:** I've led cross-functional teams, mentored junior developers, conducted code reviews, and driven Agile ceremonies.\n\n**Execution & Delivery:** I don't just delegate. I build alongside my team, ensuring quality at every stage.\n\n**Deployment & Maintenance:** I own the full lifecycle: CI/CD pipelines, cloud infrastructure, monitoring, and long-term support.\n\nWhether it's a solo project, a team effort, or coordinating across multiple teams, I deliver exceptional results at every scale.",
+      "I work directly with enterprise clients and can explain model behaviour and progress to non-technical stakeholders.\n\nAcross my roles I've led cross-functional work, mentored developers, and owned delivery: scoping requirements, planning architecture, building alongside the team, and taking systems through to deployment and monitoring. As a forward-deployed engineer I sit close to the client, translating business needs into working AI systems.",
   },
   {
     keywords: ["hello", "hi", "hey", "greet", "good"],
     response:
-      "Hey there! Welcome to my portfolio. I'm Huzaifa's assistant. Ask me anything about his experience, skills, projects, or how to get in touch. You can also use the quick buttons below to explore specific topics!",
+      "Hey there! Welcome to my portfolio. I'm Huzaifa's assistant. Ask me anything about his experience as an AI / ML Engineer, his case studies, skills, or how to get in touch. You can also use the quick buttons below to explore specific topics!",
   },
   {
-    keywords: ["help", "what can", "how to", "what do"],
+    keywords: ["help", "what can", "how to"],
     response:
-      "I'm here to help you learn about Huzaifa! You can ask me about:\n\n- **Experience:** My work history and roles\n- **Skills:** Technologies and tools I use\n- **Projects:** What I've built\n- **Voice Agents:** AI voice products I've developed\n- **Education:** My academic background\n- **Contact:** How to reach me\n\nJust type your question or use the quick action buttons below!",
+      "I'm here to help you learn about Huzaifa, an AI / Machine Learning Engineer! You can ask me about:\n\n- **Current role:** His work at Salestech Data & AI\n- **Case studies:** Rail, FinTech, Insurance, Healthcare and Supply Chain\n- **Skills:** LLMs, agents, RAG, and his wider stack\n- **Projects:** What he's built\n- **Contact:** How to reach him\n\nJust type your question or use the quick action buttons below!",
   },
   {
     keywords: ["resume", "cv", "download"],
     response:
-      "You can download my resume by clicking the **Resume** button in the navigation bar, or use this direct link. My resume includes detailed information about my 5+ years of experience, technical skills, and project highlights.",
+      "You can download my resume by clicking the **Resume** button in the navigation bar, or use this direct link. It includes detailed information about my 5+ years of experience, my AI / ML work, technical skills, and project highlights.",
   },
 ];
 
 const fallbackResponses = [
-  "That's an interesting question! While I don't have a specific answer for that, I can tell you about Huzaifa's experience, skills, projects, education, or contact info. What would you like to know?",
-  "I'm not sure about that specific topic, but I'd love to tell you about Huzaifa's work experience, technical skills, or projects. What interests you?",
-  "Great question! I'm best at answering questions about Huzaifa's professional background. Try asking about his skills, experience, or projects!",
+  "That's a good question! I'm best at answering questions about Huzaifa, an AI / Machine Learning Engineer. Ask me about his current role, his case studies (Rail, FinTech, Insurance, Healthcare, Supply Chain), his skills, or how to get in touch.",
+  "I don't have a specific answer for that, but I can tell you about Huzaifa's AI / ML work: agentic systems, RAG, voice agents, his case studies, or his experience. What would you like to know?",
+  "I'm best at answering questions about Huzaifa's work as an AI / ML Engineer. Try asking about his multi-agent compliance engine, a case study, his skills, or his experience.",
 ];
 
 export function getAIResponse(query: string): string {

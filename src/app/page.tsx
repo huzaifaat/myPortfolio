@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import BentoGrid from "@/components/BentoGrid";
 import ProjectsSection from "@/components/ProjectsSection";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SkillsSection from "@/components/SkillsSection";
 import VoiceAgentsSection from "@/components/VoiceAgentsSection";
@@ -43,6 +44,9 @@ export default function Home() {
 
       {/* SELECTED WORK */}
       <ProjectsSection />
+
+      {/* CASE STUDIES */}
+      <CaseStudiesSection />
 
       {/* EXPERIENCE */}
       <section id="experience" className="py-32 px-6">

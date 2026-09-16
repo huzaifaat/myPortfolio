@@ -22,7 +22,7 @@ export default function BentoGrid() {
       viewport={{ once: true, margin: "-80px" }}
       className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12"
     >
-      {/* Big card — What I do */}
+      {/* Big card - What I do */}
       <motion.div
         variants={item}
         className="bento-card glow-border md:col-span-2 bg-card border border-border rounded-3xl p-8 group hover:bg-card-hover transition-colors"
@@ -32,12 +32,10 @@ export default function BentoGrid() {
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
         </div>
         <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug tracking-tight">
-          I lead teams to build <span className="gradient-text">production-grade</span> platforms,{" "}
-          <span className="gradient-text">AI products</span>, and{" "}
-          <span className="gradient-text">voice agents</span>, from strategy to deployment.
+          AI/ML Engineer with 5+ years of software engineering experience, including hands-on work designing, building and deploying <span className="gradient-text">production AI systems</span>.
         </p>
         <p className="mt-4 text-fg-secondary leading-relaxed">
-          I don&apos;t just write code. I own the full lifecycle: client acquisition, project planning, architecture, team execution, deployment, and long-term maintenance. End to end.
+          I specialise in LLM applications, multi-agent architectures, RAG and document intelligence, and I own the full pipeline from data preparation and evaluation through containerised cloud deployment and monitoring. I work directly with enterprise clients in regulated industries and can explain model behaviour and progress to non-technical stakeholders.
         </p>
       </motion.div>
 
@@ -49,9 +47,9 @@ export default function BentoGrid() {
         <span className="text-xs font-mono text-accent uppercase tracking-widest">Track Record</span>
         <div className="mt-6 space-y-4">
           {[
-            { n: "5+", l: "Years of leadership" },
-            { n: "3", l: "Companies scaled" },
+            { n: "5+", l: "Years in engineering" },
             { n: "10+", l: "Products shipped" },
+            { n: "15", l: "Markets monitored" },
           ].map((s) => (
             <div key={s.l} className="flex items-baseline justify-between border-b border-border pb-3">
               <span className="text-3xl font-bold gradient-text">{s.n}</span>
@@ -61,7 +59,28 @@ export default function BentoGrid() {
         </div>
       </motion.div>
 
-      {/* Leadership */}
+      {/* AI Products (primary) */}
+      <motion.div
+        variants={item}
+        className="bento-card glow-border bg-card border border-border rounded-3xl p-8 hover:bg-card-hover transition-colors"
+      >
+        <span className="text-xs font-mono text-accent uppercase tracking-widest">AI Products</span>
+        <div className="mt-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold">AI & Agents</h3>
+          </div>
+          <p className="text-fg-secondary text-sm leading-relaxed">
+            Agentic compliance pipelines, LLM chatbot platforms with RAG, document intelligence, and voice agents, from design to production.
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Leadership (secondary) */}
       <motion.div
         variants={item}
         className="bento-card glow-border bg-card border border-border rounded-3xl p-8 hover:bg-card-hover transition-colors"
@@ -82,27 +101,6 @@ export default function BentoGrid() {
         </div>
       </motion.div>
 
-      {/* AI & Voice */}
-      <motion.div
-        variants={item}
-        className="bento-card glow-border bg-card border border-border rounded-3xl p-8 hover:bg-card-hover transition-colors"
-      >
-        <span className="text-xs font-mono text-accent uppercase tracking-widest">AI Products</span>
-        <div className="mt-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold">AI & Voice</h3>
-          </div>
-          <p className="text-fg-secondary text-sm leading-relaxed">
-            Chatbot platforms with LLM integration, dental receptionist voice AI, and automated appointment booking agents.
-          </p>
-        </div>
-      </motion.div>
-
       {/* Currently */}
       <motion.div
         variants={item}
@@ -110,10 +108,10 @@ export default function BentoGrid() {
       >
         <span className="text-xs font-mono text-accent uppercase tracking-widest">Currently at</span>
         <div className="mt-6">
-          <h3 className="text-xl font-bold">DigitLabs</h3>
-          <p className="text-accent text-sm mt-1">Full Stack Engineer</p>
+          <h3 className="text-xl font-bold">Salestech Data &amp; AI</h3>
+          <p className="text-accent text-sm mt-1">Senior Software Engineer (AI)</p>
           <p className="text-fg-secondary text-sm mt-3 leading-relaxed">
-            Leading AI chatbot platform development, managing client deliverables, and architecting end-to-end solutions with Django, Celery & Redis.
+            Forward-deployed AI engineer embedded with enterprise clients, delivering agentic and data platforms from design to production.
           </p>
         </div>
       </motion.div>

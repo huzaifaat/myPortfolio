@@ -57,7 +57,7 @@ export default function ChatInterface() {
       className="w-full max-w-2xl mx-auto"
     >
       <div className="bg-card/60 backdrop-blur-xl border border-border rounded-2xl overflow-hidden shadow-xl shadow-accent/5">
-        {/* Chat area — scrolls internally only */}
+        {/* Chat area - scrolls internally only */}
         <div
           ref={chatContainerRef}
           className="h-[250px] sm:h-[320px] overflow-y-auto overscroll-contain p-3 sm:p-5 space-y-3"

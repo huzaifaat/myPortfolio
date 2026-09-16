@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Huzaifa Athar | Full Stack Developer & AI Engineer",
+    name: "Huzaifa Athar | AI / Machine Learning Engineer",
     short_name: "Huzaifa Athar",
     description:
-      "Full Stack Developer & AI Engineer with 5+ years of experience building production-grade web apps, AI chatbots, and voice agents.",
+      "AI/ML Engineer with 5+ years of experience building production LLM applications, multi-agent systems, RAG pipelines and voice agents for enterprise clients.",
     start_url: "/",
     display: "standalone",
     background_color: "#0a0a0a",

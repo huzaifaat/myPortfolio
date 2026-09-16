@@ -5,7 +5,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ChatInterface from "./ChatInterface";
 
-const roles = ["Technical Leader", "Full-Stack Developer", "Agentic AI Engineer"];
+const roles = ["AI / Machine Learning Engineer", "Agentic AI Engineer", "LLM & RAG Engineer"];
 
 function AnimatedRole() {
   const [index, setIndex] = useState(0);
@@ -209,7 +209,7 @@ export default function HeroSection() {
               <div className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-2 border-border/50 shadow-2xl shadow-accent/20">
                 <Image
                   src="/profile.PNG"
-                  alt="Huzaifa Athar - Full Stack Developer & AI Engineer"
+                  alt="Huzaifa Athar - AI / Machine Learning Engineer"
                   fill
                   sizes="(max-width: 640px) 160px, (max-width: 768px) 208px, (max-width: 1024px) 256px, 288px"
                   className="object-cover object-top"
@@ -272,7 +272,7 @@ export default function HeroSection() {
               transition={{ delay: 1.2 }}
               className="mt-4 text-fg-secondary text-sm max-w-xs ml-auto hidden lg:block"
             >
-              Engineering intelligent systems that shape tomorrow
+              I design, build and deploy production AI systems: LLM applications, multi-agent pipelines, RAG and voice agents.
             </motion.p>
           </motion.div>
         </div>
@@ -311,7 +311,7 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Resume floating button — bottom right */}
+      {/* Resume floating button - bottom right */}
       <motion.a
         href="/resume.pdf"
         target="_blank"

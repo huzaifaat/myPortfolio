@@ -7,32 +7,48 @@ import {
   SiPython, SiDjango, SiReact, SiNextdotjs, SiTypescript,
   SiPostgresql, SiMongodb, SiRedis, SiGooglecloud, SiDocker,
   SiFastapi, SiCelery, SiGit, SiJavascript, SiTailwindcss,
-  SiMysql,
+  SiMysql, SiLangchain, SiElevenlabs, SiPandas, SiNumpy,
 } from "react-icons/si";
 import { FaAws, FaRobot } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
 
-/* ── tech icons ── */
-const techItems: { name: string; icon: IconType; color: string }[] = [
-  { name: "Python", icon: SiPython, color: "#3776AB" },
-  { name: "Django", icon: SiDjango, color: "#092E20" },
-  { name: "React", icon: SiReact, color: "#61DAFB" },
-  { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
-  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+/* ── tech icons ── AI-first. Items without an icon render as text badges. */
+const ACCENT = "#8b5cf6";
+const techItems: { name: string; icon?: IconType; color: string; text?: string }[] = [
+  // AI / ML
+  { name: "LLMs", color: ACCENT, text: "LLMs" },
+  { name: "LangChain", icon: SiLangchain, color: "#1C3C3C" },
+  { name: "LangGraph", color: ACCENT, text: "LangGraph" },
+  { name: "CrewAI", color: ACCENT, text: "CrewAI" },
+  { name: "RAG", color: ACCENT, text: "RAG" },
+  { name: "NLP", color: ACCENT, text: "NLP" },
+  { name: "Multi-Agent", color: ACCENT, text: "Multi-Agent" },
+  { name: "AWS Bedrock", icon: FaRobot, color: "#FF9900" },
+  { name: "ElevenLabs", icon: SiElevenlabs, color: "#ffffff" },
+  { name: "Pandas", icon: SiPandas, color: "#E70488" },
+  { name: "NumPy", icon: SiNumpy, color: "#4DABCF" },
+  // Data & Vector
   { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
   { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
   { name: "Redis", icon: SiRedis, color: "#DC382D" },
-  { name: "AWS", icon: FaAws, color: "#FF9900" },
-  { name: "Bedrock", icon: FaRobot, color: "#FF9900" },
-  { name: "GCP", icon: SiGooglecloud, color: "#4285F4" },
-  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  // Backend & Frontend
+  { name: "Python", icon: SiPython, color: "#3776AB" },
   { name: "FastAPI", icon: SiFastapi, color: "#009688" },
+  { name: "Django", icon: SiDjango, color: "#0C4B33" },
   { name: "Celery", icon: SiCelery, color: "#37B24D" },
-  { name: "Git", icon: SiGit, color: "#F05032" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
   { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  // Cloud & MLOps
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "Git", icon: SiGit, color: "#F05032" },
+  { name: "AWS", icon: FaAws, color: "#FF9900" },
   { name: "Azure", icon: VscAzure, color: "#0078D4" },
+  { name: "GCP", icon: SiGooglecloud, color: "#4285F4" },
+  { name: "OCI", color: "#C74634", text: "OCI" },
 ];
 
 /*
@@ -245,9 +261,9 @@ function GlobeIcons({ orbits, containerSize, perspective }: {
         const baseAngle = (i / orbit.items.length) * Math.PI * 2;
         const a = baseAngle + angleRef.current * orbit.speed;
 
-        let px = orbit.radius * Math.cos(a);
-        let py = 0;
-        let pz = orbit.radius * Math.sin(a);
+        const px = orbit.radius * Math.cos(a);
+        const py = 0;
+        const pz = orbit.radius * Math.sin(a);
 
         const r1 = rotateX(px, py, pz, orbit.tilt[0]);
         const r2 = rotateZ(r1.x, r1.y, r1.z, orbit.tilt[1]);
@@ -316,20 +332,37 @@ function GlobeIcons({ orbits, containerSize, perspective }: {
             }}
           >
             <div className="relative z-10 drop-shadow-lg transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] group hover:scale-[1.35] cursor-pointer">
-              <tech.icon size={56} color={tech.color} style={{
-                filter: `grayscale(${grayscale}%) brightness(${brightness}) blur(${blur}px)`,
-                transition: "filter 0.3s",
-              }} />
-              <span
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[11px] font-bold tracking-wider uppercase text-center whitespace-nowrap px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300 pointer-events-none"
-                style={{
-                  color: "#fff",
-                  background: "var(--accent, #8b5cf6)",
-                  boxShadow: "0 4px 12px rgba(139, 92, 246, 0.4)",
-                }}
-              >
-                {tech.name}
-              </span>
+              {tech.icon ? (
+                <tech.icon size={56} color={tech.color} style={{
+                  filter: `grayscale(${grayscale}%) brightness(${brightness}) blur(${blur}px)`,
+                  transition: "filter 0.3s",
+                }} />
+              ) : (
+                <div
+                  className="flex items-center justify-center h-14 px-3 rounded-xl border font-bold text-[13px] tracking-wide uppercase whitespace-nowrap"
+                  style={{
+                    color: ACCENT,
+                    borderColor: "rgba(139, 92, 246, 0.4)",
+                    background: "rgba(139, 92, 246, 0.08)",
+                    filter: `grayscale(${grayscale}%) brightness(${brightness}) blur(${blur}px)`,
+                    transition: "filter 0.3s",
+                  }}
+                >
+                  {tech.text ?? tech.name}
+                </div>
+              )}
+              {tech.icon && (
+                <span
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[11px] font-bold tracking-wider uppercase text-center whitespace-nowrap px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300 pointer-events-none"
+                  style={{
+                    color: "#fff",
+                    background: "var(--accent, #8b5cf6)",
+                    boxShadow: "0 4px 12px rgba(139, 92, 246, 0.4)",
+                  }}
+                >
+                  {tech.name}
+                </span>
+              )}
             </div>
           </div>
         );
@@ -358,19 +391,19 @@ export default function SkillsSection() {
 
   const orbits: OrbitConfig[] = [
     {
-      items: techItems.slice(0, 7),
+      items: techItems.slice(0, 11),
       radius: globeRadius,
       speed: 0.3,
       tilt: [0, 0],
     },
     {
-      items: techItems.slice(7, 13),
+      items: techItems.slice(11, 20),
       radius: globeRadius * 0.95,
       speed: -0.25,
       tilt: [Math.PI / 2, 0],
     },
     {
-      items: techItems.slice(13),
+      items: techItems.slice(20),
       radius: globeRadius * 0.9,
       speed: 0.2,
       tilt: [Math.PI / 4, Math.PI / 6],

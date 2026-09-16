@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Huzaifa Athar | Full Stack Developer & AI Engineer";
+export const alt = "Huzaifa Athar | AI / Machine Learning Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -75,7 +75,7 @@ export default async function Image() {
             marginTop: 16,
           }}
         >
-          Full Stack Developer & AI Engineer
+          AI / Machine Learning Engineer
         </div>
 
         {/* Tagline */}
@@ -85,9 +85,11 @@ export default async function Image() {
             fontSize: 18,
             color: "#a1a1aa",
             marginTop: 16,
+            maxWidth: 820,
+            textAlign: "center",
           }}
         >
-          Engineering intelligent systems that shape tomorrow
+          Production AI systems: LLM applications, multi-agent pipelines, RAG and voice agents
         </div>
 
         {/* URL */}

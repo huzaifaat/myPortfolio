@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Work", href: "#projects" },
+  { label: "Case Studies", href: "#case-studies" },
   { label: "Experience", href: "#experience" },
   { label: "Voice AI", href: "#voice-agents" },
   { label: "Skills", href: "#skills" },
@@ -53,7 +54,7 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Center — email */}
+        {/* Center - email */}
         <a
           href="mailto:huzaifaathar1@gmail.com"
           className="hidden lg:block text-xs font-mono text-fg-secondary hover:text-accent transition-colors"
@@ -64,7 +65,7 @@ export default function Navbar() {
         {/* Right side */}
         <div className="hidden md:flex items-center gap-6">
           <a href="/blog" className="text-sm font-medium tracking-wide uppercase text-fg-secondary hover:text-fg transition-colors">Blog</a>
-          {navLinks.filter(l => ["About", "Work", "Experience", "Contact"].includes(l.label)).map((link) => (
+          {navLinks.filter(l => ["About", "Work", "Case Studies", "Experience", "Contact"].includes(l.label)).map((link) => (
             <button
               key={link.label}
               onClick={() => handleClick(link.label, link.href)}
